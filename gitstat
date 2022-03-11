@@ -1,0 +1,82 @@
+#!/bin/bash
+
+#TODO description
+#TODO getstamp print just the name of the repository, not a path above the status message
+#TODO functions #{{{
+function getstamp(){
+  local v
+  v=$(pwd)
+  local lastdir
+  lastdir="$("${v[@]:22}")"
+  printf '%s\n' "${lastdir}" >> "$tmpfile"
+}
+
+
+#TODO colors or multiple files via head
+function fileprobe(){
+  if [[ ! -f "$tmpfile" ]]; then
+    touch /tmp/gitstatus.file
+  fi
+  printf '%s\n' "$(date +'%Y-%m-%d-%T')" > "$tmpfile"
+}
+
+
+#TODO colors or multiple files via head -f; less -x
+function seestat() {
+  less "$tmpfile"
+}
+#}}}
+
+function gstat(){
+  git status -bs #>> "$tmpfile"
+}
+
+
+#TODO exclude non-git directories or redirect error
+#function subgittest(){
+#  local sgits
+#  sgits="$(ls "$(pwd)")"
+#  for i in $sgits
+#  do
+#    if [[ ! -d "i" ]]; then
+#      continue
+#    elif
+#      cd ${i}
+#      if [[ -d ".git" ]]; then
+#        gstat
+#      else
+#        continue
+#      fi
+#    fi
+#  done
+#}
+
+
+function main(){
+  local cdir; cdir=$(pwd)
+  local wdir; wdir="/home/adrian/bin/gits"
+  local tmpfile; tmpfile="/tmp/gitstatus.file"
+  local mdate; mdate=$(date +'%Y-%m-%d-%T')
+
+  cd "$wdir"
+#  fileprobe
+  gits="$(ls "$(pwd)")"
+  clear
+  printf '\e[31;5m%s\033[0m\n\e[21m%s\033[0m\n\e[36m%s\033[0m\n\n' "!GIT!" "$mdate" "Status overview of local git repositories from $wdir"
+  for i in $gits
+  do
+    cd "$i"
+    if [[ ! -d ".git" ]]; then
+      printf '\t\t%s\n' "No git repo in ${i^^}"
+      continue
+    fi
+    gstat
+  done
+
+#  seestat
+
+  cd "$cdir"
+  exit 0
+}
+main "$@"
+
