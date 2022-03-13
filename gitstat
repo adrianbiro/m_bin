@@ -27,12 +27,41 @@ function seestat() {
 }
 #}}}
 
+#TODO
+# lines=$(git status -bs | wc -1) if [[ "$lines" -eq 1 ]]; then
+#  local numdir; numdir=$(( $(ls $wdir | wc -l) - 1 ))
+# too long
 function gstat(){
-  git status -bs #>> "$tmpfile"
+
+  wdir="/home/adrian/bin/gits"
+  declare -a commit; commit=("")
+  declare -a total; total=("")
+  local lines; lines=$(git status -bs | wc -l)
+  local llwd; llwd=$(pwd)
+  local lastdir; lastdir=$(ls $wdir | sort -r | awk 'NR==1 {print $0}')
+  if [[ "$lines" -eq 1 ]]; then
+    total+=("$(pwd)")
+  else
+    commit+=("$(pwd)")
+  fi
+  git status -bs
+  if [[ "$lastdir" == "${llwd:22}" ]]; then
+    for i in "${commit[@]}"
+    do
+      printf '%s\n' $"{i:22}"
+    done
+  fi
+#TODO
+  declare -a AAA; AAA=("")
+  for i in "${commit[@]}"
+  do
+    AAA+=("${i:22}")
+  done
+  printf '%s\n' "${AAA}"
 }
 
 
-#TODO exclude non-git directories or redirect error
+#TODO exclude non-git directories or redirect error #{{{
 #function subgittest(){
 #  local sgits
 #  sgits="$(ls "$(pwd)")"
@@ -50,11 +79,12 @@ function gstat(){
 #    fi
 #  done
 #}
-
+#}}}
 
 function main(){
+  wdir="/home/adrian/bin/gits"
   local cdir; cdir=$(pwd)
-  local wdir; wdir="/home/adrian/bin/gits"
+#  local wdir; wdir="/home/adrian/bin/gits"
   local tmpfile; tmpfile="/tmp/gitstatus.file"
   local mdate; mdate=$(date +'%Y-%m-%d-%T')
 
@@ -74,7 +104,6 @@ function main(){
   done
 
 #  seestat
-
   cd "$cdir"
   exit 0
 }

@@ -29,7 +29,7 @@ case ${1} in
 		;;
 
 	*.ps1)
-		printf "#!/usr/bin/pwsh\n\nSet-StrictMode -Version Latest" > "${path}"
+		printf "#!/usr/bin/pwsh\nSet-StrictMode -Version Latest\n" > "${path}"
 		chmod +x "${path}"
 		;;
 	*.rb)
@@ -37,7 +37,7 @@ case ${1} in
 		chmod +x "${path}"
 		;;
 	*.pl)
-		printf "#!/usr/bin/perl\n\n" > "${path}"
+		printf "#!/usr/bin/perl\nuse strict;\nuse warnings;\n\n" > "${path}"
 		chmod +x "${path}"
 		;;
 	*.md|MD)
@@ -60,7 +60,7 @@ case ${2} in
 		;;
 esac
 
-exec vim +2 "${path}"
+exec vim +4 "${path}"
 
 '''
 ### original
