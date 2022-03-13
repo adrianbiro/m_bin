@@ -45,19 +45,19 @@ function gstat(){
     commit+=("$(pwd)")
   fi
   git status -bs
-  if [[ "$lastdir" == "${llwd:22}" ]]; then
+  if [[ "${total[-1]}" = "${llwd:22}" ]]; then #TODO condition
     for i in "${commit[@]}"
     do
-      printf '%s\n' $"{i:22}"
+      echo ${i:22}
     done
   fi
 #TODO
-  declare -a AAA; AAA=("")
-  for i in "${commit[@]}"
-  do
-    AAA+=("${i:22}")
-  done
-  printf '%s\n' "${AAA}"
+#  declare -a AAA; AAA=("")
+#  for i in "${commit[@]}"
+#  do
+#    AAA+=("${i:22}")
+#  done
+#  printf '%s\n' "${AAA}"
 }
 
 
