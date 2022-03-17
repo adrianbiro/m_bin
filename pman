@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('module', help='Name of python module', type=str)
+args = parser.parse_args()
+
+module = args.module
+
+__import__(module)
+help(module)
+
+
+
+
+
