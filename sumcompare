@@ -1,0 +1,21 @@
+#!/usr/bin/python3
+import argparse
+import pyperclip
+import subprocess
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('file_name', help='Copy sum for comparing to clipboard, and specify the file name as an argument.', type=str)
+parser.add_argument('-md5', '--md5sum', help='for md5sum', action='store_true')
+args = parser.parse_args()
+
+file_name = args.file_name
+sum_to_compare = str(pyperclip.paste())
+
+if args.md5sum:
+    testsum = "/usr/bin/md5sum"
+else:
+    testsum = "/usr/bin/sha256sum"
+
+print(f'{sum_to_compare} sum from the clipboard.')
+new_sum = subprocess.run([testsum, file_name])
