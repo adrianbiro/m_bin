@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+import sys
+import re
+cmt = re.compile(r'^([#])(.*)')
+
+for i in sys.stdin.readlines():
+    try:
+        cmsearch = cmt.search(i)
+        print(cmsearch.group(2))
+    except AttributeError:
+        print(i, end='')
+
+'''
+Python and Bash variants can be used from vim in ex mode,
+as alternative to sed s/^/#/ s/#//
+For use inside the vim, just select targeted lines in visual mode
+and in an ex mode run cmt or ucmt respectively by ! cmt.
+Both can work as a Unix filter:
+./cmt < without_comments.file > with_comments.file.
+Or vice versa:
+./ucmt < with_comments.file > without_comments.file
+
+uncm.sh
+while IFS= read -r line; do
+  echo "${line#* }"
+done
+
+cmt.sh
+while IFS= read -r line; do
+  echo "${1:-#} $line"
+done
+'''
