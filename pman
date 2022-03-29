@@ -3,16 +3,17 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('module', help='Name of python module', type=str)
+parser.add_argument('-b', help='For build-in', action='store_true')
 args = parser.parse_args()
 
 module = args.module
 
 try:
-    __import__(module)
+    if args.b is False:     #None TODO
+        __import__(module)
     help(module)
 except:
     print(f'There is no "{module}" module.')
-
 
 
 
