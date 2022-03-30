@@ -9,7 +9,7 @@ args = parser.parse_args()
 module = args.module
 
 try:
-    if args.b is False:     #None TODO
+    if args.b is None:  #== False: TODO
         __import__(module)
     help(module)
 except:
