@@ -6,7 +6,7 @@ for i in sys.stdin.readlines():
 
 '''
 Python and Bash variants can be used from vim in ex mode,
-as alternative to sed s/^/#/ s/#//
+as alternative to sed s/^/#/ s/#// or norm i# | norm x
 For use inside the vim, just select targeted lines in visual mode
 and in an ex mode run cmt or ucmt respectively by ! cmt.
 Both can work as a Unix filter:
