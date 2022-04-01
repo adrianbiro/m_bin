@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import argparse
+import hashlib
 import pyperclip
-import subprocess
-import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file_name', help='Copy sum for comparing to clipboard, and specify the file name as an argument.', type=str)
@@ -12,10 +11,17 @@ args = parser.parse_args()
 file_name = args.file_name
 sum_to_compare = str(pyperclip.paste())
 
-if args.md5sum:
-    testsum = "/usr/bin/md5sum"
-else:
-    testsum = "/usr/bin/sha256sum"
+with open(file_name, "rb") as f:
+    bytes = f.read()
+    if args.md5sum:
+        testsum = hashlib.md5(bytes).hexdigest()
+    else:
+        testsum = hashlib.sha256(bytes).hexdigest()
 
-print(f'{sum_to_compare} sum from the clipboard.')
-new_sum = subprocess.run([testsum, file_name])
+if testsum == sum_to_compare:
+    print("File is corect")
+else:
+    print("Sums difer chceck it")
+
+print(f'{sum_to_compare}\tsum from the clipboard.')
+print(f'{testsum}\tsum from the clipboard.')
