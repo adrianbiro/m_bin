@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import argparse
 import hashlib
+import mmap
 import pyperclip
 
 parser = argparse.ArgumentParser()
@@ -12,16 +13,17 @@ file_name = args.file_name
 sum_to_compare = str(pyperclip.paste())
 
 with open(file_name, "rb") as f:
-    bytes = f.read()
-    if args.md5sum:
-        testsum = hashlib.md5(bytes).hexdigest()
-    else:
-        testsum = hashlib.sha256(bytes).hexdigest()
+    with mmap.mmap(f.fileno(), length=0, prot=mmap.PROT_READ) as mm:
+        bytes = mm.read()
+        if args.md5sum:
+            testsum = hashlib.md5(bytes).hexdigest()
+        else:
+            testsum = hashlib.sha256(bytes).hexdigest()
 
 if testsum == sum_to_compare:
-    print("File is corect")
+    print("The file is correct")
 else:
-    print("Sums difer chceck it")
+    print("Sums differ, chceck it")
 
 print(f'{sum_to_compare}\tsum from the clipboard.')
 print(f'{testsum}\tsum from the clipboard.')
