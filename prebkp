@@ -1,23 +1,27 @@
 #!/usr/bin/python3
 import os
 import shutil
+"""Command-line utility for clean-up from auto-generated and temporary files.
+It goes recursively from the current working directory,
+and ask the user for confirmation of deleting files."""
 
-zo = []
-mtup = ("venv", "__pycache__")
+matches_files = []
+names_to_search = ("venv",
+        "__pycache__")
 
 for (root, dirs, files) in os.walk('.'):
-	if os.path.basename(root) in mtup:
-		zo.append((os.path.relpath(root)))
+	if os.path.basename(root) in names_to_search:
+		matches_files.append((os.path.relpath(root)))
 
 print(f'Should I remove these files?')
-for i in zo:
+for i in matches_files:
     print(f'./{i}')
 #    print(os.path.join(os.path.basename(os.getcwd()), i))
 
-response = input("Y/N ").upper().strip()
+response = input("Y/N\n> ").upper().strip()
 try:
     if response == "Y":
-        for i in zo:
+        for i in matches_files:
             shutil.rmtree(i)
 except FileNotFoundError:
     pass
