@@ -19,9 +19,9 @@ for i in matches_files:
 #    print(os.path.join(os.path.basename(os.getcwd()), i))
 
 response = input("Y/N\n> ").upper().strip()
-try:
-    if response == "Y":
-        for i in matches_files:
+if response == "Y":
+    for i in matches_files:
+        try:
             shutil.rmtree(i)
-except FileNotFoundError:
-    pass
+        except FileNotFoundError:
+            pass
