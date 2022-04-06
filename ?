@@ -1,5 +1,16 @@
 #!/usr/bin/python3
 import webbrowser
 import sys
-var = ' '.join(sys.argv[1:])
-webbrowser.open(f'https://lite.duckduckgo.com/lite/?q={var}')
+import pyperclip
+
+def open_in_browser():
+    """Search for a given text string on the internet.
+    Usage: Just type the name of the program, and desired text string afterward.
+    Or copy text to the clipboard and write two dots
+    to search for text from the clipboard. """
+    if sys.argv[1] == "..":
+        search_string = str(pyperclip.paste())
+    else:
+        search_string = ' '.join(sys.argv[1:])
+    webbrowser.open(f'https://lite.duckduckgo.com/lite/?q={search_string}')
+open_in_browser()
