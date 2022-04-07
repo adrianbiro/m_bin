@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p zdir{1..3}/bdir{1..3}
+
+touch zdir{1..3}/bdir{1..3}/file{1..5}.txt
+
+if [[ "$1" == "-ls" ]]; then
+  ls -R | less
+fi
+
+if [[ "$1" == "-rm" ]]; then
+  rm -r zdir{1..3}
+fi
