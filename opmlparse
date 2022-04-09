@@ -1,0 +1,46 @@
+#!/usr/bin/python3
+import sys
+from sys import stdin, stdout, stderr
+from xml.etree import ElementTree
+
+"""Load the opml file from the standard input."""
+try:
+    tree = ElementTree.parse(stdin)
+except ElementTree.ParseError as err:
+    stderr.write(f"Can't parse XML: {err.msg}\n")
+    exit(1)
+"""Parse the file for RSS feed URLs and corresponding titles."""
+titles_urls = {}
+for i in tree.findall('.//outline'):
+    url = i.attrib.get('xmlUrl')
+    title = i.attrib.get('title')
+    titles_urls.update({title: url})
+"""If the first argument is -v or --verbose write to the standard output title plus the RSS URL, if not write just urlsURLs."""
+try:
+    if sys.argv[1] == '-v' or sys.argv[1] == '--verbose':
+        for v, k in titles_urls.items():
+            if k is not None:
+                stdout.write(f'{v.strip()}:\n\t{k.strip()}\n')
+except IndexError:
+    for v in titles_urls.values():
+        if v is not None:
+            stdout.write(f'{v.strip()}\n')
+
+"""
+Sample output:
+$ ./opmlparse.py < Feeds.opml --verbose
+Solene'%:
+	https://dataswamp.org/~solene/rss.xml
+openSUSE News:
+	https://news.opensuse.org/feed.xml
+Michael Warren Lucas:
+	https://mwl.io/feed
+---snip---
+
+$ ./opmlparse.py < Feeds.opml
+https://dataswamp.org/~solene/rss.xml
+https://news.opensuse.org/feed.xml
+https://mwl.io/feed
+---snip---
+"""
+
