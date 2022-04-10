@@ -19,7 +19,7 @@ for i in tree.findall('.//outline'):
 try:
     if sys.argv[1] == '-v' or sys.argv[1] == '--verbose':
         for v, k in titles_urls.items():
-            if k is not None:
+            if k is not None:  # Some RSS readers tend to export invalid duplicities, this takes care of that.
                 stdout.write(f'{v.strip()}:\n\t{k.strip()}\n')
 except IndexError:
     for v in titles_urls.values():
