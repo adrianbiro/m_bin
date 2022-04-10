@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+import sys
+import re
+
+def extract_olc():
+    """Extracts one-line comments, that start with the hash and docstrings, and prints out line numbers."""
+    doc_regex = re.compile(r"""
+            \"\"\".*\"\"\"|
+            \'\'\'.*\'\'\'|
+            \#.*
+            """, re.VERBOSE)
+
+    line_num = 0
+    with open(sys.argv[1], "r") as f:
+        for i in f.readlines():
+            line_num += 1
+            if line_num != 1:  # Ignore shebang line
+                try:
+                    doc_search = doc_regex.search(i)
+                    print(f'{line_num}:\t{doc_search.group()}')
+                except AttributeError:
+                    continue
+extract_olc()

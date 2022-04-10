@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+import os
+import sys
+
+if len(sys.argv) == 1:
+    print("\tAt least one argument is required, it should be the source file for creating a symbolic link. The default destination directory is ~/bin, but if the second argument is specified, it will overwrite that with a custom location.")
+    sys.exit(0)
+src = os.path.abspath(sys.argv[1])
+
+try:
+    if os.path.exists(sys.argv[2]):
+        dest = os.path.join(os.path.expanduser(sys.argv[2]), sys.argv[1])
+    else:
+        print('Wrong destionation path.')
+        sys.exit(1)
+except IndexError:
+    dest = os.path.join(os.path.expanduser("~"), "bin", sys.argv[1])
+
+try:
+    os.symlink(src, dest)
+    print(f'Symlink created\n{src} --> {dest}')
+
+except FileExistsError:
+    if os.path.islink(os.path.join(dest)):
+        print(f"Symlink alredy exists.")
