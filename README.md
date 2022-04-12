@@ -7,7 +7,7 @@ cmt - comment selected lines
 
 epr.py - epub reader
 
-expydoc - extracts one-line comments, that start with the hash and 
+expydoc - extracts one-line comments, that start with the hash and
 docstrings, and prints out line numbers.
 
 extract - unzip or untar files
@@ -20,11 +20,13 @@ lns - create symlink
 
 maketestdirs - make a bunch of directories and files
 
+mcp - put highlighted text to the system clipboard in vim visual mode
+
 newx - make an executable file with appropriate shebang
 
 opmlparse - parse OPML file for RSS URLs
 
-pman - help for python modules 
+pman - help for python modules
 
 pomo - pomodoro
 
