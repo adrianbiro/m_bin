@@ -1,0 +1,2 @@
+#!/bin/bash
+num=0; for i in ${1}*; { mv -v "$i" ${2}$(( ++num  ))${3}; }
