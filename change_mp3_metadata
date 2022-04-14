@@ -1,0 +1,65 @@
+#!/usr/bin/python3
+import os
+from mutagen.easyid3 import EasyID3
+
+"""Change  tags in audio files in the current working directory."""
+for i in os.listdir("."):
+    if i.endswith(".jpg") or i.endswith(".jpeg") or i.endswith(".png"):
+        continue
+    file_name, file_extension = os.path.splitext(i)
+    audio = EasyID3(i)
+    print(f'Old name: {audio.pprint()}')
+    audio["title"] = file_name
+    print(f'New name: {audio.pprint()}')
+    audio.save()
+
+"""to get all tags"""
+#for i in EasyID3.valid_keys.keys():
+#    print(i)
+'''
+title
+version
+artist
+albumartist
+conductor
+arranger
+discnumber
+organization
+tracknumber
+author
+albumartistsort
+albumsort
+composersort
+artistsort
+titlesort
+isrc
+discsubtitle
+language
+genre
+date
+originaldate
+performer:*
+musicbrainz_trackid
+website
+replaygain_*_gain
+replaygain_*_peak
+musicbrainz_artistid
+musicbrainz_albumid
+musicbrainz_albumartistid
+musicbrainz_trmid
+musicip_puid
+musicip_fingerprint
+musicbrainz_albumstatus
+musicbrainz_albumtype
+releasecountry
+musicbrainz_discid
+asin
+performer
+barcode
+catalognumber
+musicbrainz_releasetrackid
+musicbrainz_releasegroupid
+musicbrainz_workid
+acoustid_fingerprint
+acoustid_id
+'''
