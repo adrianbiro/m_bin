@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import fileinput
+import csv
+
+"""It sorts unique occurrences of data from a plain text file and writes output out to a CSV file with a line number as an identifier."""
+
+def remove_duplicates(items, key=None):
+    """Remove duplicates"""
+    seen = set()
+    for item in items:
+        val = item if key is None else key(item)
+        if val not in seen:
+            yield item
+            seen.add(val)
+
+with fileinput.input() as f:
+    dedup_file = {}
+    file_name = ""
+    for line in remove_duplicates(f):
+        dedup_file.update({f.lineno(): line})
+        file_name = str(f.filename()) + '_uniq.csv'
+
+with open(file_name, 'w', newline='') as csvfile:
+    filewriter = csv.writer(csvfile, delimiter=',',dialect='unix', quoting=csv.QUOTE_MINIMAL)
+    filewriter.writerow(["Line Number", "Unique Data"])
+    for k, v in dedup_file.items():
+        filewriter.writerow([str(k).strip(), v.replace('\n', '').title().strip()])
+
+
