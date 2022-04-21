@@ -30,7 +30,7 @@ function getinfo() {
 
 function main(){
   local CDIR; CDIR=$(pwd)
-  local WDIR; WDIR="/home/adrian/bin/gits"
+  local WDIR; WDIR="/home/adrian/gits"
   declare -a commit; commit=("")
   declare -a total; total=("")
   cd $WDIR || return
