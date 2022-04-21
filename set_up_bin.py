@@ -21,6 +21,4 @@ for i in os.listdir():
 
 
 if len(renamed) > 0:
-    print("Backup files:")
-    for i in renamed:
-        print(i)
+    print("Backup files:\n" + '\n\t'.join(renamed))
