@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+import webbrowser
+import sys
+import pyperclip
+
+def open_in_browser():
+    """Search for a given text string python docs. """
+    if sys.argv[1] == "..":
+        search_string = str(pyperclip.paste())
+    else:
+        search_string = ' '.join(sys.argv[1:])
+    webbrowser.open(f'https://docs.python.org/3.9/search.html?q={search_string}')
+open_in_browser()
