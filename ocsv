@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+import subprocess
+import sys
+
+def open_csv(file_name):
+    if file_name.endswith(".csv"):
+        subprocess.call(["libreoffice", "--view", "--minimized", "--quickstart", file_name])
+    else:
+        print(f"{file_name} isn't valid CSV.")
+        sys.exit(2)
+
+
+if len(sys.argv) > 1:
+    open_csv(sys.argv[1])
+else:
+    print("Give a CSV file to open as an argument.")
+    sys.exit(2)
+
+

@@ -3,7 +3,7 @@ import os
 from mutagen.easyid3 import EasyID3
 
 """Change  tags in audio files in the current working directory."""
-for i in os.listdir("."):
+for i in sorted(os.listdir("."), key=str.lower):  # output makes better sense
     if i.endswith((".jpg", ".jpeg", ".png")):
         continue
     file_name, file_extension = os.path.splitext(i)
