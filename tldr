@@ -1,4 +1,14 @@
 #!/bin/bash
-# to browse PDF version of https://github.com/tldr-pages/tldr
-xdg-open $HOME/adrian_knihy/zoznam_záložky/man/tldr-book.pdf&
-# To get help whitout thist try apropos. apropos search the manual page names and descriptions.
+#xdg-open $HOME/adrian_knihy/zoznam_záložky/man/tldr-book.pdf&
+# To get help try apropos. apropos seare manual page names and descriptions.
+
+
+finpath=$HOME/adrian_knihy/zoznam_záložky/man/tldr/
+cd $finpath
+find -name "${1}".md | xargs batcat --pager "less -RF"
+
+
+
+
+
+
