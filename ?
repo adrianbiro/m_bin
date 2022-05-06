@@ -12,5 +12,8 @@ def open_in_browser():
         search_string = str(pyperclip.paste())
     else:
         search_string = ' '.join(sys.argv[1:])
+    if search_string.endswith(' $'):
+        search_string = search_string.replace(' $', ' related:stackoverflow.com')
+
     webbrowser.open(f'https://lite.duckduckgo.com/lite/?q={search_string}')
 open_in_browser()
