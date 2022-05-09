@@ -2,7 +2,7 @@
 import fileinput
 import csv
 
-"""It sorts unique occurrences of data from a plain text file and writes output out to a CSV file with a line number as an identifier."""
+"""Like SQL UNION. It sorts unique occurrences of data -Title case!- from a plain text file and writes output out to a CSV file with a line number as an identifier."""
 
 def remove_duplicates(items, key=None):
     """Remove duplicates"""
