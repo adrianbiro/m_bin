@@ -13,6 +13,7 @@ def run_rsync():
                     "--delete",
                     "/home/adrian/adrian_knihy",
                     "/home/adrian/gits",
+                    "/home/adrian/Applications",
                     "/mnt/mydisk/"])  # / on end is intentional.
 
 def test_path():
