@@ -8,10 +8,7 @@ def open_in_browser():
     Usage: Just type the name of the program, and desired text string afterward.
     Or copy text to the clipboard and write two dots
     to search for text from the clipboard. """
-    if sys.argv[1] == "..":
-        search_string = str(pyperclip.paste())
-    else:
-        search_string = ' '.join(sys.argv[1:])
+    search_string = str(pyperclip.paste()) if sys.argv[1] == ".." else ' '.join(sys.argv[1:])
     if search_string.endswith(' $'):
         search_string = search_string.replace(' $', ' related:stackoverflow.com')
 
