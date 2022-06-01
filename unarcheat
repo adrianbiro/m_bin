@@ -1,0 +1,47 @@
+#!/usr/bin/awk -f
+function archtype(string) {
+switch (string) {
+    case "tar" :
+        unarchstr = "tar x[z]vf file"; break
+    case "lzma" :
+        unarchstr =  "unlzma file"; break
+    case "bz2" :
+        unarchstr = "bunzip2 file"; break
+    case "rar" :
+        unarchstr = "unrar file"; break
+    case "gz" :
+        unarchstr = "gunzip file"; break
+    case "zip" :
+        unarchstr = "unzip file"; break
+    case "z" :
+        unarchstr = "uncompress file"; break
+    case "7z" :
+        unarchstr = "7z x file"; break
+    case "xz" :
+        unarchstr = "unxz file"; break
+    case "exe" :
+        unarchstr = "cabextract file"; break
+
+    default:
+        unarchstr = "Unknow extension: " string
+        usage();
+        break
+    }
+    return unarchstr
+}
+
+function usage() {
+    print "Usage: unarcheat [tar|gz|zip]"
+}
+
+BEGIN {
+    if (ARGC > 1){
+        file_arg = ARGV[1];
+        delete ARGV[1];
+        unarchcmd = archtype(file_arg)
+    } else {
+        usage()
+        exit(1)
+    }
+    print unarchcmd
+}
