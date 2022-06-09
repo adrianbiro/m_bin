@@ -1,26 +1,27 @@
 #!/usr/bin/awk -f
 function archtype(string) {
+# https://www.gnu.org/software/gawk/manual/html_node/Strong-Regexp-Constants.html
 switch (string) {
-    case  "tar" :
-        unarchstr =  "tar x[z]vf file.tar" ; break
-    case "lzma" :
-        unarchstr =  "unlzma file.lzma" ; break
-    case "bz2" :
-        unarchstr =  "bunzip2 file.bz2" ; break
-    case "rar" :
-        unarchstr =  "unrar file.rar" ; break
-    case "gz" :
-        unarchstr =  "gunzip file.gz" ; break
-    case "zip" :
-        unarchstr =  "unzip file.zip" ; break
-    case "z" :
-        unarchstr =  "uncompress file.z" ; break
-    case "7z" :
-        unarchstr =  "7z x file.7z" ; break
-    case "xz" :
-        unarchstr =  "unxz file.xz" ; break
-    case "exe" :
-        unarchstr =  "cabextract file.exe" ; break
+    case @/(\.tar\.bz2|\.tar\.gz|\.tar\.xz|\.tar)$/ :
+        unarchstr =  "tar x[z]vf " string ; break
+    case @/\.lzma$/ :
+        unarchstr =  "unlzma " string ; break
+    case @/\.bz2$/ :
+        unarchstr =  "bunzip2 " string ; break
+    case @/\.rar$/ :
+        unarchstr =  "unrar " string ; break
+    case @/\.gz$/ :
+        unarchstr =  "gunzip " string ; break
+    case @/\.zip$/ :
+        unarchstr =  "unzip " string ; break
+    case @/\.z$/ :
+        unarchstr =  "uncompress " string ; break
+    case @/\.7z$/ :
+        unarchstr =  "7z x " string ; break
+    case @/\.xz$/ :
+        unarchstr =  "unxz " string ; break
+    case @/\.exe$/ :
+        unarchstr =  "cabextract " string ; break
 
     default:
         unarchstr = "Unknow extension: " string
