@@ -20,7 +20,7 @@ fi
 case ${1} in
 
 	*.sh)
-		printf "#!/bin/bash\n\n" > "${path}"
+		printf "#!/bin/bash\nset -o errexit\nset -o nounset\nset -o pipefail\n\n" > "${path}"
 		chmod +x "${path}"
 		;;
 	*.py)
@@ -60,7 +60,7 @@ case ${2} in
 		;;
 esac
 
-exec vim +4 "${path}"
+exec vim +5 "${path}"
 
 '''
 ### original
