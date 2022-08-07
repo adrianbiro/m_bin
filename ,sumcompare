@@ -31,7 +31,7 @@ try:
         else:
             print("Sums differ, chceck it")
 
-        print(f'{sum_to_compare}\tsum from the clipboard.')
+        print(f'{sum_to_compare}\tsum.')
         print(f'{testsum}\tsum from the clipboard.')
 except ValueError:
     print(f"The string in the clipboard isn't valid hexadecimal:\n{sum_to_compare}")
