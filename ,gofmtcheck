@@ -1,0 +1,14 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+gofmtcheck() {
+    local fmt
+    fmt=$(gofmt -l -s **/*)
+    if [[ ! -z "${fmt}" ]]; then
+        echo -e "Failed gofmt:\v${fmt}"
+        exit 1
+    fi
+}
+
+gofmtcheck
