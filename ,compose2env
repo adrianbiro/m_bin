@@ -1,0 +1,11 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+# in from docker-compose.yaml
+# environment:
+#   - "INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER:-admin}"
+# out
+# INFLUXDB_ADMIN_USER='admin'
+grep -oP '(?<=\${).*(?=})' ${1} | sed -E -e 's/:-/=/g' -e "s/(.*)=(.*)/\1\='\2'/"
