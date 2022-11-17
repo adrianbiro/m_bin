@@ -1,0 +1,7 @@
+#!/usr/bin/python3
+import datetime
+
+currentDateTime = datetime.datetime.now()
+date = currentDateTime.date()
+year = int(date.strftime("%Y"))
+print((datetime.date(year, 12, 31) - datetime.date.today()).days)
