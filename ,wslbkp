@@ -1,6 +1,5 @@
 #!/bin/sh
-tar -cvf /mnt/c/Users/AdriánBíro/src/homeadrian.tar \
-  --listed-incremental=src/metadatahomeadrian.snar \
-  /home/adrian
+BKPDIR="/mnt/c/Users/AdriánBíro/src/"
+tar -cf ${BKPDIR}/homeadrian.tar --listed-incremental=${BKPDIR}/metadatahomeadrian.snar /home/adrian
 # restore
-# tar --directory=/home/ -xvf /mnt/c/Users/AdriánBíro/src/homeadrian.tar --listed-incremental=/dev/null
+# tar --directory=/home/ -xf ${BKPDIR}/homeadrian.tar --listed-incremental=/dev/null
