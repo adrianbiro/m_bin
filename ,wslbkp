@@ -1,0 +1,6 @@
+#!/bin/sh
+tar -cvf /mnt/c/Users/AdriánBíro/src/homeadrian.tar \
+  --listed-incremental=src/metadatahomeadrian.snar \
+  /home/adrian
+# restore
+# tar --directory=/home/ -xvf /mnt/c/Users/AdriánBíro/src/homeadrian.tar --listed-incremental=/dev/null
