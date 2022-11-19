@@ -1,7 +1,7 @@
 #!/bin/bash
 # copy to system clipboard TODO case for more OS
 if [[ $(uname -r) =~ "microsoft" ]]; then
-    powershell.exe -c Set-Clipboard ${@}
+    powershell.exe -c Set-Clipboard -Value ${@}
 else
     xclip -f -sel clip ${@}
 fi
