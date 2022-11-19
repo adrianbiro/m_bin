@@ -5,3 +5,14 @@ currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = int(date.strftime("%Y"))
 print((datetime.date(year, 12, 31) - datetime.date.today()).days)
+
+"""
+function bash_until_EY()
+{
+    local dy; dy=365
+    if [[ $(cal -d "$(date "+%Y")-2") =~ "29" ]]; then
+            dy=366
+    fi
+    echo $((${dy} - $(date +"%j")))
+ }
+"""
