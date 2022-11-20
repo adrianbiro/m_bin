@@ -14,7 +14,9 @@ fi
 # Copy only when the SOURCE file is newer than the destination file
 # or when the destination file is missing. Array lookup above is slower
 # and error-prone due to multiple levels of shell invocation.
+printf "Books before: %s\n" $(ls -l | wc -l)
 
 find "${SOURCE// /\ }" -type f \( -name '*.epub' -o -name '*.pdf' -o -name '*.djvu' \) -print0 | xargs -0r cp -u -t .
 
+printf "Books after: %s\n" $(ls -l | wc -l)
 
