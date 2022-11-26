@@ -1,0 +1,14 @@
+#!/usr/bin/awk -f
+
+{
+    string = ""
+    for(i = length; i!=0; i--)
+    {
+        string = string substr($0, i, 1)
+    }
+    print string
+}
+# $ echo -e "asd ert\nmop" | ,revstr | tac
+# pom
+# tre dsa
+
