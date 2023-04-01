@@ -8,4 +8,5 @@ set -o pipefail
 #   - "INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER:-admin}"
 # out
 # INFLUXDB_ADMIN_USER='admin'
-grep -oP '(?<=\${).*(?=})' ${1} | sed -E -e 's/:-/=/g' -e "s/(.*)=(.*)/\1\='\2'/"
+# shellcheck disable=SC2016
+grep -oP '(?<=\${).*(?=})' "${1}" | sed -E -e 's/:-/=/g' -e "s/(.*)=(.*)/\1\='\2'/"

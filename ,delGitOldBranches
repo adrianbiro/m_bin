@@ -5,7 +5,7 @@ set -o pipefail
 
 default_branch_whitelist="(main|master)"
 skip_branches="${1:-"${default_branch_whitelist}"}"
-dry_run="${2}"  #TODO this is unset
+dry_run="${2}" #TODO this is unset
 
 # We only have a single --dry-run flag set so use the default branch list
 # and make sure dry_run is set.
@@ -14,8 +14,7 @@ if [ "${skip_branches}" = "--dry-run" ]; then
   dry_run="--dry-run"
 fi
 
-git branch | grep -wEv "${skip_branches}" \
-    | grep -wv "$(git branch --show-current)" \
-    | { if [ -n "${dry_run}" ]; then cat -; else xargs git branch -D; fi; }
+git branch | grep -wEv "${skip_branches}" |
+  grep -wv "$(git branch --show-current)" |
+  { if [ -n "${dry_run}" ]; then cat -; else xargs git branch -D; fi; }
 # TODO make dry-run default and ask for confirmation
-

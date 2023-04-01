@@ -5,8 +5,7 @@ IFS='
 '
 # Turn off globing
 set -f
-for i  in $(find . -name "*[.m4a | .mp4]" )
-do
+for i in $(find . -name "*[.m4a | .mp4]"); do
   name="${i%.*}"
   ffmpeg -i "${i}" -b:a 192K -vn "${name}.mp3" &
 done
@@ -14,8 +13,7 @@ done
 # The ffmpeg output is pretty verbose, but in bulk
 # and in the background it is useless.
 # This keeps track of jobs in a more manageable way.
-while :
-do
+while :; do
   jobs
   sleep 5
   if [[ $(jobs -l | wc -l) == 0 ]]; then
