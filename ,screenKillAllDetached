@@ -1,5 +1,0 @@
-#!/bin/bash
-set -o errexit
-set -o nounset
-set -o pipefail
-screen -ls | awk '/Detached/{print $1}' | xargs -I{} screen -X -S {} quit
