@@ -9,16 +9,17 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "file",
     type=str,
-    nargs="?",
+    nargs="*",
     default=sys.stdin,
     help="log file to read, reads from stdin if not provided",
 )
 parser.add_argument(
     "-e",
     "--error-pattern",
+    "--error",
     type=str,
     default=r"java.lang.NullPointerException",
-    help="error string, default is 'java.lang.NullPointerException'",
+    help="error string, default is '%(default)s'",
 )
 args = parser.parse_args()
 timestamp_pattern = r"^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}.*$"
@@ -42,9 +43,10 @@ def main():
         if sys.stdin.isatty():
             return parser.print_help()
         return parse_log(sys.stdin)
-    with open(args.file, "r") as f:
-        return parse_log(f)
+    for i in args.file:
+        with open(i, "r") as f:
+            parse_log(f)
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
