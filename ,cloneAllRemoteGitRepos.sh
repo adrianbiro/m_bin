@@ -7,7 +7,8 @@ TOKEN=${TOKEN:?"export TOKEN='token_here'"}
 NAME='adrianbiro'
 OLDPWD="${PWD}"
 GITSDIR="${HOME}/allgits"
-TOUPDATE=()
+readonly TOKEN NAME GITSDIR
+#TOUPDATE=()
 
 function gitstuff {
   local gitrepo dirnamedotgit dirname
@@ -36,10 +37,11 @@ function main {
     mkdir "${GITSDIR}"
   fi
 
-  mapfile -d $'\0' TOUPDATE < <(find "${GITSDIR}" -type d -name ".git" -prune -print0)
-
+  #mapfile -d $'\0' TOUPDATE < <(find "${GITSDIR}" -type d -name ".git" -prune -print0)
+  
   local page
-  page=1
+  declare -i page=1
+  #page=1
   while :; do
     json=$(
       curl -s "https://api.github.com/users/$NAME/repos" -G \
@@ -56,6 +58,6 @@ function main {
       gitstuff "${line}"
     done
   done
-  cd "${OLDPWD}" || return
+  cd "${OLDPWD}" #|| return
 }
 main "${@}"
