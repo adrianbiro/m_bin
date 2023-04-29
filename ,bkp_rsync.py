@@ -15,6 +15,7 @@ def run_rsync():
                     "/home/adrian/gits",
                     "/home/adrian/Applications",
                     "/home/adrian/.vim",
+                    "/opt/bin",
                     "/mnt/mydisk/"])  # / on end is intentional.
 
 def test_path():
