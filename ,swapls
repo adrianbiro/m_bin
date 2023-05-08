@@ -1,0 +1,2 @@
+#!/bin/sh
+smem -s swap -r | awk 'NR==1{print; next};int($4) > 0'
