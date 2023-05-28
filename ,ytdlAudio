@@ -1,3 +1,5 @@
 #!/bin/bash
 set -o errexit
-youtube-dl --extract-audio --audio-format mp3  --audio-quality 0 "${1}"
+#youtube-dl --extract-audio --audio-format mp3  --audio-quality 0 "${@}"
+
+yt-dlp --extract-audio --audio-format mp3 --format bestaudio "${@}"
