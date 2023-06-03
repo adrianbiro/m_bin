@@ -1,0 +1,4 @@
+#!/bin/bash
+# freerdp /u:<Name> /p:<Password> /d:<ad.domain.com> /v:<ip_addr> /w:1920 /h:1080 /fonts /smart-sizing
+# https://github.com/awakecoding/FreeRDP-Manuals/blob/master/User/FreeRDP-User-Manual.markdown
+freerdp "${@}" /w:1920 /h:1080 /fonts /smart-sizing 
