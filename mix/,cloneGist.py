@@ -35,7 +35,6 @@ async def _fetch(url: str, headers: dict[str:str], location: str) -> None:
 
 
 async def get_files(urls: list[str], headers: dict[str:str], location: str) -> None:
-    #coroutines = [await _fetch(url=url, headers=headers, location=location) for url in urls]
     await asyncio.wait([await _fetch(url=url, headers=headers, location=location) for url in urls])
 
 
