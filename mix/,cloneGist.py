@@ -56,7 +56,7 @@ def main() -> None:
 
     urls: list[str] = get_urls(headers=headers)
     
-    loop = asyncio.new_event_loop()
+    loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     try:
         loop.run_until_complete(
