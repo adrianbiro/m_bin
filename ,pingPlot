@@ -1,0 +1,7 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+ping -i.2 google.com | grep -oP '(?<=time=).*(?=ms)' --line-buffered | asciigraph -r -h 10 -w 80 -c "ping google in 2 ms"
+
