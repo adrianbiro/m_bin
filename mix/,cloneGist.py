@@ -5,7 +5,7 @@ import os
 import requests
 
 
-def get_urls(headers: dict[str,str]) -> list[str]:
+def get_urls(headers: dict[str, str]) -> list[str]:
     """
     return list of files.<filename>.raw_ulr
     https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
@@ -15,8 +15,10 @@ def get_urls(headers: dict[str,str]) -> list[str]:
     _page: int = 1
     while True:
         url: str = "https://api.github.com/gists"
-        params: dict[str,int] = {"per_page":100, "page":_page}
-        res: requests.Response = requests.get(url=url, params=params, headers=headers, timeout=10)
+        params: dict[str, int] = {"per_page": 100, "page": _page}
+        res: requests.Response = requests.get(
+            url=url, params=params, headers=headers, timeout=10
+        )
         _urls: list[str] = [
             j["raw_url"] for i in res.json() for j in i["files"].values()
         ]
@@ -28,16 +30,20 @@ def get_urls(headers: dict[str,str]) -> list[str]:
     return urls
 
 
-async def _fetch(url: str, headers: dict[str,str], location: str) -> None:
+async def _fetch(url: str, headers: dict[str, str], location: str) -> None:
     res: requests.Response = requests.get(url=url, headers=headers, timeout=10)
-    with open(name := os.path.join(location, url.split("/")[-1]), "w",encoding="utf8") as f:
+    with open(
+        name := os.path.join(location, url.split("/")[-1]), "w", encoding="utf8"
+    ) as f:
         print(f"Fetching {name}")
         f.write(res.text)
 
 
-async def get_files(urls: list[str], headers: dict[str,str], location: str) -> None:
+async def get_files(urls: list[str], headers: dict[str, str], location: str) -> None:
     await asyncio.wait(
-      [await _fetch(url=url, headers=headers, location=location) for url in urls] #type:ignore
+        [
+            await _fetch(url=url, headers=headers, location=location) for url in urls
+        ]  # type:ignore
     )
 
 
@@ -51,7 +57,7 @@ def main() -> None:
         (location := os.path.join(os.environ["HOME"], "allgits", "Gists")),
         exist_ok=True,
     )
-    headers: dict[str,str] = {
+    headers: dict[str, str] = {
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
         "Authorization": f"Bearer {TOKEN}",
