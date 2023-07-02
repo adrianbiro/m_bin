@@ -1,0 +1,12 @@
+#!/bin/sh
+# Sample CPU stack traces for the entire system, at 99 Hertz, for 30 seconds 
+sudo perf record -F 99 -ag -- sleep 10
+
+printf "sudo perf report -n --stdio -f perf.data --header\n"
+#perf report --sort comm,dso
+#perf script
+
+### install
+#sudo apt install linux-tools-common linux-tools-generic
+#perf --list-cmds
+#https://github.com/torvalds/linux/blob/master/tools/perf/Documentation/tips.txt

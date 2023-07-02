@@ -1,0 +1,2 @@
+#!/bin/sh
+ps -eo user,sz,rss,minflt,majflt,pcpu,args

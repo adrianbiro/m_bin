@@ -1,0 +1,3 @@
+#!/bin/sh
+# show file descriptor usage, which is for some apps active network connections
+lsof -iTCP -sTCP:ESTABLISHED

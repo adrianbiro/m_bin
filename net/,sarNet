@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sar -n TCP,ETCP,DEV 1 -H

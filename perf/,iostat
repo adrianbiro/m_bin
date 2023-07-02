@@ -1,0 +1,3 @@
+#!/bin/sh
+iostat -xmdzh 1 "${@}" # -p sda
+# lsblk -l | awk '!(/loop/||/NAME/){print $1}'

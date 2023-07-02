@@ -1,0 +1,4 @@
+#!/bin/sh
+name="${1:? <proces to trace>}"
+# CPU counter statistics for the specified PID, until Ctrl-C:
+perf stat -p "$(pgrep "${name}")"
