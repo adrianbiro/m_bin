@@ -1,0 +1,20 @@
+#!/bin/bash
+
+awk '{ print ConstrunctRegex($string) }
+
+function ConstrunctRegex(pattern){
+    Regex = "^"
+	for ( i=1; i<=length(pattern); i++ ) {
+        c = substr(pattern, i, 1);
+        if ( c == "*" ){ 
+            Regex = Regex ".*" 
+        } else if ( c == "." ){ 
+            Regex = Regex "\\." 
+        } else if ( c == "?" ){ 
+            Regex = Regex "." 
+        } else { 
+            Regex = Regex c 
+        }
+    }
+    return Regex "$"
+}' <<< "${@}"
