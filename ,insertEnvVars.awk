@@ -8,7 +8,7 @@ BEGIN{
     }
 }
 
-# $ docker run -it $(./insertEnvVars.awk) --rm alpine env
+# $ docker run -it $(./,insertEnvVars.awk) --rm alpine env
 # -e XDG_SESSION_TYPE
 # -e XDG_SEAT_PATH
 # -e XDG_SESSION_CLASS

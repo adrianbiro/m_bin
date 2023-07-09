@@ -2,6 +2,6 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-sed -n '/^#include\ .*/p' **/*.c \
-  | sed -n 's/^#include\ *"\(.*\)"/\1/gp' \
-  | sort -u
+sed -n '/^#include\ .*/p' **/*.c |
+  sed -n 's/^#include\ *"\(.*\)"/\1/gp' |
+  sort -u

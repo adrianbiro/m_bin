@@ -3,4 +3,4 @@ set -o errexit
 set -o nounset
 set -o pipefail
 # list top level
-tar --exclude='*/*/*' -tf ${1}
+tar --exclude='*/*/*' -tf "${1}"

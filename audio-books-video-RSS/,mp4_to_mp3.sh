@@ -5,9 +5,9 @@ IFS='
 '
 # Turn off globing
 set -f
-for i in $(find . -name "*[.m4a | .mp4]"); do
+find . -name "*[.m4a | .mp4]" -print0 | while IFS= read -r -d '' i; do
   name="${i%.*}"
-  ffmpeg -i "${i}" -b:a 192K -vn "${name}.mp3" &
+  ffmpeg -nostdin -i "${i}" -b:a 192K -vn "${name}.mp3" &
 done
 
 # The ffmpeg output is pretty verbose, but in bulk
