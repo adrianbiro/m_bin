@@ -1,0 +1,14 @@
+#!/bin/bash
+[[ $# -eq 0 ]] && {
+    echo -e "Usage:\n\t${0##*/} (bios|system|baseboard|chassis|processor|memory|cache|connector|slot)"
+    exit 1
+}
+function _sudo() {
+    if ((0 == "$(id --user)")); then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+_sudo dmidecode -t "${1}"

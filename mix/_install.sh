@@ -1,6 +1,6 @@
 #!/bin/bash
 function _sudo() {
-    if [[ "0" == "$(id --user)" ]]; then
+    if ((0 == "$(id --user)")); then
         "$@"
     else
         sudo "$@"

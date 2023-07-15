@@ -5,23 +5,22 @@ import re
 from time import sleep
 
 
-def _getvalue(p: Path) -> str:
-    with open(p, "r") as f:
-        val: str = f.read()
-    try:
-        return f"{float(val) / 1000}°C"  # temp stores 54000 that means 54°C
-    except ValueError:  # type stores name
-        val = val.rstrip()  # remove \n
-        if (
-            "acpitz" in val
-        ):  # Escape sequence not allowed in expression portion of f-string prior to Python 3.12
-            return "{0}_{1}".format(
-                val, re.sub(r"\D", "", p.parts[-2])
-            )  # thermal_zone[0-9]+ -> just digit)
+def temp_data(P: Path) -> list[tuple[str, str]]:
+    def _getvalue(p: Path) -> str:
+        with open(p, "r") as f:
+            val: str = f.read()
+        try:
+            return f"{float(val) / 1000}°C"  # temp stores 54000 millidegree Celsius, that means 54°C
+        except ValueError:  # type stores name
+            val = val.rstrip()  # remove \n
+            if (
+                "acpitz" in val
+            ):  # Escape sequence not allowed in expression portion of f-string
+                return "{0}_{1}".format(
+                    val, re.sub(r"\D", "", p.parts[-2])
+                )  # thermal_zone[0-9]+ -> just digit)
         return val
 
-
-def temp_data(P: Path) -> list[tuple[str, str]]:
     return sorted(
         [
             (_getvalue(i.joinpath("type")), _getvalue(i.joinpath("temp")))
@@ -38,7 +37,11 @@ def format_table(P: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Show temperature info from /sys/class/thermal/thermal_zone*/(temp|type)"
+        description=f"""
+Show cpu temperature info from /sys/class/thermal/thermal_zone*/(temp|type).
+\thttps://www.kernel.org/doc/Documentation/thermal/x86_pkg_temperature_thermal
+\thttps://www.kernel.org/doc/Documentation/thermal/sysfs-api.txt""",
+        formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
         "-w",
@@ -47,7 +50,7 @@ def main() -> None:
         type=float,
         default=None,
         const=1,
-        help="Watch temperature in '%(default)s' seconds intervals.",
+        help="Watch temperature in '%(default)s' seconds intervals. Use 0.2 or .2 for fractions.",
     )
     args = parser.parse_args()
 
