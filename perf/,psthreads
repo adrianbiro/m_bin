@@ -1,0 +1,15 @@
+#!/bin/sh
+ps -eo nlwp,pid,args | sort -nr -k 1,1
+
+docs=:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+-o format
+NLWP      number of lwps (threads) in the process.  (alias thcount).
+
+sort 
+-k, --key=POS1[,POS2] start a key at POS1 (origin 1), end it at POS2 (default end of line)
+-n, --numeric-sort
+-r, --reverse
+
+END_COMMENT

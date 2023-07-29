@@ -1,0 +1,12 @@
+#!/bin/bash
+top -b -d 1 -p "$(pgrep "${1}" | head -1)" -H
+
+docs=:<<'END_COMMENT'
+-b  Batch-mode operation
+-d  Delay-time interval between screen updates
+-p  Monitor-PIDs
+-H  Threads-mode operation
+    Instructs  top  to  display  individual  threads. Without this command-line option a summation of all threads in each
+    process is shown.  Later this can be changed with the `H' interactive command.
+END_COMMENT
+

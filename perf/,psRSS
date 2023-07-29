@@ -1,0 +1,21 @@
+#!/bin/sh
+ps -eo user,rss,pid,args -p "$(pgrep "${1}" | head -1)" | sort -r -n -k 2,2
+
+docs=:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+-o format
+RSS resident set size, the non-swapped physical memory that a task has used (in kilobytes).  (alias rssize, rsz).
+
+sort 
+-k, --key=POS1[,POS2] start a key at POS1 (origin 1), end it at POS2 (default end of line)
+-n, --numeric-sort
+-r, --reverse
+
+https://www.baeldung.com/linux/resident-set-vs-virtual-memory-size
+This is a measure of how much memory a process is consuming in our physical RAM, to load all of its pages after its execution.
+This includes memory allocated from shared libraries, given they are still present in memory. Also, it includes all heap and stack memory.
+RSS is not an accurate measure of the total memory processes are consuming, because it does not include memory consumed by libraries 
+that were swapped out. On the other hand, the same shared libraries may be duplicated and counted in different processes. 
+However, RSS is a reliable estimate.
+END_COMMENT

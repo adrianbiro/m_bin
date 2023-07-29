@@ -1,2 +1,9 @@
 #!/bin/sh
 sar -n DEV 1
+
+docs=:<<'END_COMMENT'
+Collect, report, or save system activity information.
+-n { keyword[,...] | ALL }
+    Report network statistics.
+    With  the DEV keyword, statistics from the network devices are reported.
+END_COMMENT

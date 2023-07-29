@@ -1,2 +1,8 @@
 #!/bin/sh
 ps -eo user,sz,rss,minflt,majflt,pcpu,args
+
+docs=:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+-o format
+END_COMMENT

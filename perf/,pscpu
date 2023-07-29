@@ -1,2 +1,12 @@
 #!/bin/bash
 ps -eo pcpu,pid,args | sort -k 1 -r 
+
+docs=:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+-o format
+
+sort 
+-k, --key=KEYDEF
+-r, --reverse
+END_COMMENT

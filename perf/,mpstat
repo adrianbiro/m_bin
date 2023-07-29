@@ -1,2 +1,6 @@
 #!/bin/sh
 mpstat -P ALL 1
+
+docs=:<<'END_COMMENT'
+processors related statistics
+END_COMMENT

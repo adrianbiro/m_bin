@@ -3,3 +3,8 @@
 pidstat -t 1
 #Report I/O statistics (kernels 2.6.20 and later only)
 #pidstat -d 1
+
+docs=:<<'END_COMMENT'
+Report statistics for Linux tasks.
+-t     Also display statistics for threads associated with selected tasks.
+END_COMMENT

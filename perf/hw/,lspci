@@ -6,8 +6,14 @@ function _sudo() {
         sudo "$@"
     fi
 }
-# -vv verbose
-# -D Always show PCI domain numbers
-# -Q Query the central database even for entries which are recognized locally.
-# -nn Show PCI vendor and device codes as both numbers and names.
+
 _sudo lspci -vvDQnn
+
+
+docs=:<<'END_COMMENT'
+list all PCI devices
+-vv verbose
+-D Always show PCI domain numbers
+-Q Query the central database even for entries which are recognized locally.
+-nn Show PCI vendor and device codes as both numbers and names.
+END_COMMENT

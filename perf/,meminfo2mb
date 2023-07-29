@@ -1,0 +1,3 @@
+#!/bin/sh
+
+awk '{printf("%-20s %.2f MB\n", $1, ($2/1024))}' /proc/meminfo | sed 's/\.00//'
