@@ -20,3 +20,13 @@ END {
     #    users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
   } 
 }' | sort -r -n -k 1,1
+
+# BEGIN {
+    # split("B,kiB,MiB,GiB", suff, ",")
+# }
+
+# {
+    # size=$1;
+    # rank=int(log(size)/log(1024));
+    # printf "%.4g%s\n", size/(1024**rank), suff[rank+1]
+# }

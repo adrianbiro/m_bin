@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
-# http://www.zorranlabs.com/blog/?p=59
-my @ps = `/bin/ps aux`;
+# with improved formatting same as http://www.zorranlabs.com/blog/?p=59
+my @ps = `ps aux`;
 my @headers = split(/\s+/, shift(@ps));
 my %users;
 
@@ -14,18 +14,28 @@ foreach (@ps) {
   }
 
   next unless exists $ps_entry{USER};
-  $users{$ps_entry{USER}} = { nproc=>0, size=>0, rss=>0, mem=>0, time=>0, cpu=>0 } unless exists $users{$ps_entry{USER}};
+  $users{$ps_entry{USER}} = { 
+    COUNT=>0, SIZE=>0, RSS=>0, MEM=>0, TIME=>0, CPU=>0 
+    } unless exists $users{$ps_entry{USER}};
   my $user = $users{$ps_entry{USER}};
 
-  $user->{nproc}++;
-  $user->{size} += $ps_entry{VSZ} if exists $ps_entry{VSZ};
-  $user->{rss} += $ps_entry{RSS} if exists $ps_entry{RSS};
-  $user->{mem} += $ps_entry{'%MEM'} if exists $ps_entry{'%MEM'};
-  $user->{cpu} += $ps_entry{'%CPU'} if exists $ps_entry{'%CPU'};
-  $user->{time} += ($1 * 60) + $2 if (exists $ps_entry{'TIME'} && $ps_entry{'TIME'} =~ /^([0-9]+):([0-9]+)$/);
+  $user->{COUNT}++;
+  $user->{SIZE} += $ps_entry{VSZ} if exists $ps_entry{VSZ};
+  $user->{RSS} += $ps_entry{RSS} if exists $ps_entry{RSS};
+  $user->{MEM} += $ps_entry{'%MEM'} if exists $ps_entry{'%MEM'};
+  $user->{CPU} += $ps_entry{'%CPU'} if exists $ps_entry{'%CPU'};
+  $user->{TIME} += ($1 * 60) + $2 if (exists $ps_entry{'TIME'} && $ps_entry{'TIME'} =~ /^([0-9]+):([0-9]+)$/);
 }
 
-print "NPROC\tUSER\tSIZE\tRSS\tMEMORY\tTIME\tCPU\n";
-foreach (sort { $users{$b}{cpu} <=> $users{$a}{cpu} } keys(%users)) {
-  printf("%d\t%s\t%d\t%d\t%.1f\%\t%.2d:%.2d\t%.1f\%\n", $users{$_}{nproc}, $_, $users{$_}{size}, $users{$_}{rss}, $users{$_}{mem}, ($users{$_}{time} / 60), ($users{$_}{time} % 60), $users{$_}{cpu});
+printf("%-7s%-11s%-15s%-9s%8s%10s%10s\n","COUNT","USER","VSZ(mb)","RSS(mb)","MEM(%)","TIME","CPU(%)");
+foreach (sort { $users{$b}{CPU} <=> $users{$a}{CPU} } keys(%users)) {
+  printf("%-7d%-11s%-15.2f%-11.2f%-12.1f%-10s%-10.1f\n",
+    $users{$_}{COUNT}, 
+    $_, 
+    ($users{$_}{SIZE} / 1024 / 1024), 
+    ($users{$_}{RSS} / 1024 / 1024), 
+    $users{$_}{MEM}, 
+    sprintf("%d:%d", ($users{$_}{TIME} / 60),($users{$_}{TIME} % 60)),
+    $users{$_}{CPU});
+
 }
