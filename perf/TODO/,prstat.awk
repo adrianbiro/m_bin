@@ -1,9 +1,12 @@
 #!/bin/sh
 awk 'BEGIN{ printf("%-7s %9s %9s %9s %9s %9s %9s\n","COUNT","USER","VSZ","RSS","MEMORY","TIME","CPU")}'
-ps aux | awk '
+ps aux | awk ' 
 NR == 1 {next}
 #TODO fix values
-{   user=$1
+{   
+    user=$1
+    #users[sprintf("%s,%s",$1,"COUNT")] += 1
+    #users[sprintf("%s,%s",$1,"NAME")] = $1
     users[user][COUNT] += 1
     users[user][CPU] += $2
     users[user][VSZ] += $3
@@ -15,6 +18,7 @@ END {
   for (u in users) {
     printf("%7d%10s%10d%10d%10d%10d%10d\n", \
         users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
+        #print users[sprintf("%s,%s",u,"COUNT")], users[sprintf("%s,%s",u,"NAME")]
     #printf("%7d  %10s\n", users[u]['COUNT'], u)
     #printf("%d%  s%  d%  %d  %d  %d  %d\n", \
     #    users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
