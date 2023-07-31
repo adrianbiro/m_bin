@@ -1,6 +1,0 @@
-#!/bin/bash
-
-{
-    echo . interface . \| bytes pkts err drop ovrrun mcast \| . \| bytes pkts err drop carr collsn
-    ip -o -s link show | sed -e 's/<.* RX:/RX:/' -e 's/bytes.*mcast//' -e 's/bytes.*collsns//' -e 's/\\  *altname.*//' -e 's/  *$//' -e 's/\\/\|/g'
-} | column -t  # duplicate
