@@ -1,5 +1,6 @@
 #!/bin/sh
-awk 'BEGIN{ printf("%-7s %9s %9s %9s %9s %9s %9s\n","COUNT","USER","VSZ","RSS","MEMORY","TIME","CPU")}'
+{ awk 'BEGIN{ print("COUNT","USER","VSZ","RSS","MEMORY","TIME","CPU")}'
+
 ps aux | awk ' 
 NR == 1 {next}
 #TODO fix values
@@ -16,14 +17,13 @@ NR == 1 {next}
 }
 END { 
   for (u in users) {
-    printf("%7d%10s%10d%10d%10d%10d%10d\n", \
-        users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
+        print( users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
         #print users[sprintf("%s,%s",u,"COUNT")], users[sprintf("%s,%s",u,"NAME")]
     #printf("%7d  %10s\n", users[u]['COUNT'], u)
     #printf("%d%  s%  d%  %d  %d  %d  %d\n", \
     #    users[u]['COUNT'], u, users[u]['VSZ'], users[u]['RSS'], users[u]['MEM'], users[u]['TIME'], users[u]['CPU'] )
   } 
-}' | sort -r -n -k 1,1
+}' | sort -r -n -k 1,1 ;}| column --table
 
 # BEGIN {
     # split("B,kiB,MiB,GiB", suff, ",")
