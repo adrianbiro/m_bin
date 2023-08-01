@@ -1,8 +1,8 @@
 #!/bin/bash
-
+# escape \ip to overwrite alias
 {
     echo '. Interface . | Bytes Packets Errors Droped Missed Mcast | . | Bytes Packets Errors Droped Carrier Collsns'
-    ip -human -oneline -statistics link show | sed -e 's/<.* RX:/RX:/' \
+   \ip -human -oneline -statistics link show | sed -e 's/<.* RX:/RX:/' \
         -e 's/bytes.*mcast//' \
         -e 's/bytes.*collsns//' \
         -e 's/\\  *altname.*//' \
