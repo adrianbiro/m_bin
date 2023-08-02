@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sudo lspci -vv -nn | sed -n -e '/Non-Volatile memory/,$p' | grep Lnk
+docs=:<<'END_COMMENT'
+https://youtu.be/UYD8_tzOBug
+-vv verbose
+-nn Show PCI vendor and device codes as both numbers and names.
+
+nvme list -v # to get 0000:55:00.0
+
+sudo lspci -vv -nn -s 0000:55:00.0 | grep Lnk
+
+END_COMMENT
