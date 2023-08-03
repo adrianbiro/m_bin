@@ -1,3 +1,11 @@
 #!/bin/sh
 
 sar -n TCP,ETCP,DEV 1 -H
+
+docs=:<<'END_COMMENT'
+Collect, report, or save system activity information.
+-n { keyword[,...] | ALL }
+    Report network statistics.
+    With  the DEV keyword, statistics from the network devices are reported.
+-H  Report hugepages utilization statistics.
+END_COMMENT

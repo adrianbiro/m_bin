@@ -9,3 +9,8 @@
         -e 's/  *$//' \
         -e 's/\\/\|/g'
 } | column -t
+
+docs=:<<'END_COMMENT'
+ip-link - network device configuration
+-o  -oneline    output each record on a single line,
+END_COMMENT

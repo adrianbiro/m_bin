@@ -1,3 +1,13 @@
 #!/bin/sh
-# show file descriptor usage, which is for some apps active network connections
+
 lsof -iTCP -sTCP:ESTABLISHED
+
+docs=:<<'END_COMMENT'
+show file descriptor usage, which is for some apps active network connections
+
+List open files
+
+-i [i]  selects the listing of files any of whose Internet address matches the address specified in i.
+-s [p:s] s  alone  directs  lsof to display file size at all times.  It causes the SIZE/OFF output column title to be changed to SIZE.  If the file
+                does not have a size, nothing is displayed. 
+END_COMMENT
