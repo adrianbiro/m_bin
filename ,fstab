@@ -1,0 +1,2 @@
+#!/bin/sh
+sed 's/#.*//' /etc/fstab | column --table --table-columns SOURCE,TARGET,TYPE --table-hide -
