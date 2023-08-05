@@ -1,5 +1,5 @@
 #!/bin/bash
-ps -eo pcpu,pid,args | sort -k 1 -r 
+ps -eo pcpu,pid,args | sort -k 1,1 -r 
 
 docs=:<<'END_COMMENT'
 Report a snapshot of the current processes.
