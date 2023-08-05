@@ -1,5 +1,5 @@
 #!/bin/sh
-ps -eo user,rss,pid,args -p "$(pgrep "${1}" | head -1)" | sort -r -n -k 2,2
+ps -eo user,rss,pid,args | sort -r -n -k 2,2
 
 docs=:<<'END_COMMENT'
 Report a snapshot of the current processes.
