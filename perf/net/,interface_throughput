@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# escape \ip to overwrite alias
 {
     echo '. Interface . | Bytes Packets Errors Droped Missed Mcast | . | Bytes Packets Errors Droped Carrier Collsns'
+    # escape \ip to overwrite alias
     \ip -human -oneline -statistics link show | sed -e 's/<.* RX:/RX:/' \
         -e 's/bytes.*mcast//' \
         -e 's/bytes.*collsns//' \
@@ -11,11 +11,12 @@
         -e 's/\\/\|/g'
 } | column -t
 
-docs=: <<'END_COMMENT'
+: <<'END_COMMENT'
 ip-link - network device configuration
 -o  -oneline    output each record on a single line,
+
+Use with:
+watch -n 1 ...
+watch -d ..
 END_COMMENT
 
-# [ $# -gt 0 ] &&
-# watch -n 1
-# watch -d
