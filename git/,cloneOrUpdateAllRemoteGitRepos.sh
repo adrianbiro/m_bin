@@ -10,12 +10,15 @@ GITSDIR="${HOME}/allgits"
 readonly TOKEN NAME GITSDIR
 
 function gitstuff {
-  local gitrepo
+  local gitrepo dirnamedotgit
   gitrepo="${1:?}" # git@github.com:adrianbiro/zfs_exporter.git
+  dirnamedotgit="${gitrepo##*/}"  # zfs_exporter.git
   cd "${GITSDIR}" >"/dev/null" || return
-  if [[ -d ".git" ]]; then
+  if [[ ! -d ".git" ]]; then
+    cd "${dirnamedotgit}" || return
     git fetch --all --tags
   else
+  echo "asd"
     git clone --mirror "${gitrepo}"
   fi
   : <<'END_COMMENT'
