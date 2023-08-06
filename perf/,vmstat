@@ -2,7 +2,7 @@
 
 vmstat  -Sm 1
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 Report virtual memory statistics
 -S, --unit character
     Switches outputs between 1000 (k), 1024 (K), 1000000 (m), or 1048576 (M) bytes.  

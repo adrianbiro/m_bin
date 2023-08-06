@@ -2,7 +2,7 @@
 
 route -n -A inet6
 
-docs=: <<'END_COMMENT'
+: <<'END_COMMENT'
 route - show / manipulate the IP routing table
 like route -n
 cf. diff <(route -n -A inet) <(route -n)

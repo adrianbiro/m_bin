@@ -4,7 +4,7 @@ find /sys/class/thermal/thermal_zone*/ -maxdepth 0 -print0 | while IFS= read -r 
     echo "$(cat "${dir}"/type): $(sed 's/\(.\)..$/.\1°C/' "${dir}/temp")"
 done
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 
 temp stores 54000 millidegree Celsius, that means 54°C
 

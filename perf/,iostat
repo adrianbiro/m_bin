@@ -2,7 +2,7 @@
 iostat -xmdzh 1 "${@}" # -p sda
 # lsblk -l | awk '!(/loop/||/NAME/){print $1}'
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 CPU statistics and input/output statistics for devices and partitions
 -x     Display extended statistics.
 -m     Display statistics in megabytes per second.

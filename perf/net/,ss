@@ -3,7 +3,7 @@
 ss -mop
 #ss -i
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 -m  Show socket memory usage.
 -o, --options   Show timer information. For TCP protocol
 -p, --processes Show process using socket.

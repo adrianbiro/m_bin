@@ -1,7 +1,7 @@
 #!/bin/sh
 ps -ef f
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 Report a snapshot of the current processes.
 -e     Select all processes.
 -f     Do full-format listing.  This option can be combined with many other UNIX-style options to add additional columns.  It also causes

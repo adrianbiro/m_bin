@@ -1,7 +1,7 @@
 #!/bin/sh
 smem -s swap -r | awk 'NR==1{print; next};int($4) > 0'
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 Report memory usage with shared memory divided proportionally.
 -s SORT, --sort=SORT
 -r, --reverse

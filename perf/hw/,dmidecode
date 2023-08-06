@@ -14,7 +14,7 @@ function _sudo() {
 _sudo dmidecode -t "${1}"
 
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 DMI table decoder
 It is tool  for dumping a computer's DMI (some say SMBIOS) table contents in a human-readable format. 
 This table contains a description of the system's hardware components, as well as other useful pieces 

@@ -1,7 +1,7 @@
 #!/bin/sh
 ps -eo nlwp,pid,args | sort -nr -k 1,1
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 Report a snapshot of the current processes.
 -e     Select all processes.
 -o format

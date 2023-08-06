@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo lspci -vv -nn | sed -n -e '/Non-Volatile memory/,$p' | grep Lnk
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 https://youtu.be/UYD8_tzOBug
 -vv verbose
 -nn Show PCI vendor and device codes as both numbers and names.

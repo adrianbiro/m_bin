@@ -5,7 +5,7 @@ pmap -x "$(pgrep "${1}" | head -1)"
 #less -S /proc/stat
 
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 report memory map of a process
 -x, --extended
 END_COMMENT

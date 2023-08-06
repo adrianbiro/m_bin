@@ -1,0 +1,37 @@
+#!/bin/sh
+sudo netstat -anp -6 -4
+
+: <<'END_COMMENT'
+Print network connections
+-a, --all   Show both listening and non-listening sockets.
+-n   Show numerical addresses instead of trying to determine symbolic host, port or user names. 
+-p, --program Show the PID and name of the program to which each socket belongs.
+-inet|-4 --inet6|-6     Protocols
+
+To  show only TCP or UDP: 
+LINUX 
+-t 
+-u 
+BSD
+-p tcp 
+-p udp
+
+Established sockets:
+    netstat -np -t
+    lsof -iTCP -sTCP:ESTABLISHED
+
+Show only listening sockets:
+LINUX
+    netstat -np -t -l
+BSD
+    netstat -na -f inet | grep -v ESTABLISHED
+
+Show what's listening on port:
+LINUX
+    netstat -tnlp 
+    ss -tnlp
+BSD
+    socketstat -4
+Any
+    lsof -n -i
+END_COMMENT

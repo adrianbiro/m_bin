@@ -2,7 +2,7 @@
 
 sar -n TCP,ETCP,DEV 1 -H
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 Collect, report, or save system activity information.
 -n { keyword[,...] | ALL }
     Report network statistics.

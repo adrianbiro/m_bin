@@ -10,7 +10,7 @@ function _sudo() {
 _sudo lspci -vvDQnn
 
 
-docs=:<<'END_COMMENT'
+:<<'END_COMMENT'
 list all PCI devices
 -vv verbose
 -D Always show PCI domain numbers
