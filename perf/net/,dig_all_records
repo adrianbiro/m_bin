@@ -1,0 +1,8 @@
+#!/bin/bash
+HOST="${1:?Usage: ${0##*/} <example.com>}"
+
+echo 'A,AAAA,ALIAS,CNAME,MX,NS,PTR,SOA,SRV,TXT,DNSKEY,DS,NSEC,NSEC3,NSEC3PARAM,RRSIG,AFSDB,ATMA,CAA,CERT,DHCID,DNAME,HINFO,ISDN,LOC,MB,MG,MINFO,MR,NAPTR,NSAP,RP,RT,TLSA,X25' \
+    | tr ',' '\n' \
+    | xargs -I{} dig +noall +short +noshort +answer {} "${HOST}" \
+    2>/dev/null \
+    | grep -v ';;'
