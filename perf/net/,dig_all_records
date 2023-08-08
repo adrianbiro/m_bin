@@ -1,8 +1,17 @@
 #!/bin/bash
-HOST="${1:?Usage: ${0##*/} <example.com>}"
 
-echo 'A,AAAA,ALIAS,CNAME,MX,NS,PTR,SOA,SRV,TXT,DNSKEY,DS,NSEC,NSEC3,NSEC3PARAM,RRSIG,AFSDB,ATMA,CAA,CERT,DHCID,DNAME,HINFO,ISDN,LOC,MB,MG,MINFO,MR,NAPTR,NSAP,RP,RT,TLSA,X25' \
-    | tr ',' '\n' \
-    | xargs -I{} dig +noall +short +noshort +answer {} "${HOST}" \
-    2>/dev/null \
-    | grep -v ';;'
+[[ -z "${1}" ]] && {
+    echo -e "
+Usage:
+    ${0##*/} <example.com>
+
+Check all records:
+    ALL=1 ${0##*/} <example.com>"
+    exit 1
+}
+
+records='A,AAAA,AFSDB,ATMA,CAA,CERT,CNAME,DHCID,DNAME,DNSKEY,DS,HINFO,ISDN,LIAS,LOC,MB,MG,MINFO,MR,MX,NAPTR,NS,NSAP,NSEC,NSEC3,NSEC3PARAM,PTR,RP,RRSIG,RT,SOA,SPF,SRV,TLSA,TXT,X25'
+
+[[ -n "${ALL}" ]] && records='A,A6,AAAA,AFSDB,AMTRELAY,APL,ATMA,AVC,CAA,CDNSKEY,CDS,CERT,CNAME,CSYNC,DHCID,DLV,DNAME,DNSKEY,DOA,DS,EID,EUI48,EUI64,GPOS,HINFO,HIP,HTTPS,IPSECKEY,ISDN,KEY,KX,L32,L64,LIAS,LOC,LP,MAILA,MAILB,MB,MD,MF,MG,MINFO,MR,MX,NAPTR,NID,NIMLOC,NINFO,NS,NSAP,NSAP-PTR,NSEC,NSEC3,NSEC3PARAM,NULL,NXT,OPENPGPKEY,PTR,PX,RP,RRSIG,RT,SIG,SINK,SMIMEA,SOA,SPF,SRV,SSHFP,SVCB,TA,TALINK,TKEY,TLSA,TSIG,TXT,URI,WKS,X25,ZONEMD'
+
+tr ',' '\n' <<<"${records}" | xargs -I{} dig +noall +short +noshort +answer {} "${1}" 2>/dev/null | grep -v ';;'

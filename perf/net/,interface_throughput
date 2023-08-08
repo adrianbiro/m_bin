@@ -1,17 +1,17 @@
 #!/bin/bash
+if command -v ipaa 1>"/dev/null" 2>&1; then
+    {
+        echo '. Interface . | Bytes Packets Errors Droped Missed Mcast | . | Bytes Packets Errors Droped Carrier Collsns'
+        # escape \ip to overwrite alias
+        \ip -human -oneline -statistics link show | sed -e 's/<.* RX:/RX:/' \
+            -e 's/bytes.*mcast//' \
+            -e 's/bytes.*collsns//' \
+            -e 's/\\  *altname.*//' \
+            -e 's/  *$//' \
+            -e 's/\\/\|/g'
+    } | column -t
 
-{
-    echo '. Interface . | Bytes Packets Errors Droped Missed Mcast | . | Bytes Packets Errors Droped Carrier Collsns'
-    # escape \ip to overwrite alias
-    \ip -human -oneline -statistics link show | sed -e 's/<.* RX:/RX:/' \
-        -e 's/bytes.*mcast//' \
-        -e 's/bytes.*collsns//' \
-        -e 's/\\  *altname.*//' \
-        -e 's/  *$//' \
-        -e 's/\\/\|/g'
-} | column -t
-
-: <<'END_COMMENT'
+    : <<'END_COMMENT'
 ip-link - network device configuration
 -o  -oneline    output each record on a single line,
 
@@ -20,3 +20,6 @@ watch -n 1 ...
 watch -d ..
 END_COMMENT
 
+else
+    ifconfig | grep -E '(RX|TX|^\w*:)' | sed -E 's/(^.*:).*/\1/' #| column -t
+fi
