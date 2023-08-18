@@ -1,5 +1,5 @@
 #!/bin/bash
-if command -v ipaa 1>"/dev/null" 2>&1; then
+if command -v ip 1>"/dev/null" 2>&1; then
     {
         echo '. Interface . | Bytes Packets Errors Droped Missed Mcast | . | Bytes Packets Errors Droped Carrier Collsns'
         # escape \ip to overwrite alias

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ps -eo %cpu | awk '{sum += $0}END{printf("%s%%\n", sum)}'
+
+:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+-o format
+
+END_COMMENT
