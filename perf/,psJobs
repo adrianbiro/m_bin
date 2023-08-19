@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ps jax --sort=uid,-ppid,+pid
+
+:<<'END_COMMENT'
+Report a snapshot of the current processes.
+j   job format (BSD)
+--sort -KEY reverse
+
+TPGID   ID of the foreground process group on the tty that the process is connected to, 
+        or -1 if the process is not connected to a tty.
+END_COMMENT

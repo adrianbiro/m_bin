@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+ps -eo euser,ruser,suser,fuser,f,comm,label --sort=euser
+
+:<<'END_COMMENT'
+Report a snapshot of the current processes.
+-e     Select all processes.
+--sort KEY
+
+EUSER   effective user name.
+SUSER   saved user name.
+RUSER   real user ID.
+FUSER   filesystem access user ID. 
+F       flags associated with the process. PROCESS FLAGS
+        The sum of these values is displayed:
+           1    forked but didn't exec
+           4    used super-user privileges
+COMMAND only the executable name, not args.
+LABEL   security label, SELinux context data.
+
+END_COMMENT

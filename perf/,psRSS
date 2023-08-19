@@ -18,4 +18,9 @@ This includes memory allocated from shared libraries, given they are still prese
 RSS is not an accurate measure of the total memory processes are consuming, because it does not include memory consumed by libraries 
 that were swapped out. On the other hand, the same shared libraries may be duplicated and counted in different processes. 
 However, RSS is a reliable estimate.
+
+ps -ely --sort=-rss
+    -y     Do not show flags; show rss in place of addr.
+    -l     Long format.
+    --sort -KEY reverse
 END_COMMENT
