@@ -1,0 +1,33 @@
+#!/bin/bash
+
+strace "${@}" 2>&1 | less
+
+:<<'END_COMMENT'
+https://www.brendangregg.com/blog/2014-05-11/strace-wow-much-syscall.html
+Trace system calls and signals
+    2>&1 write to stdin not qto stderr. 
+
+Pass strace otions and program as arguments: 
+    strace -e trace=socket,open,close ./a.out
+    strace --failed-only ./a.out
+    strace -c -p <pid>
+-c --summary-only    Count time, calls, and errors for each system call and report a summary on program exit.
+-f --follow-forks
+
+Syscalls:
+man syscalls 
+man 2 <syscall_name>
+read    read bytes from a file descriptor (file, socket)
+write	write bytes from a file descriptor (file, socket)
+open	open a file (returns a file descriptor)
+close   close a file descriptor
+fork	create a new process (current process is forked)
+exec	execute a new program
+connect	connect to a network host
+accept	accept a network connection
+stat	read file statistics
+ioctl	set I/O properties, or other miscellaneous functions
+mmap	map a file to the process memory address space
+brk	    extend the heap pointer
+
+END_COMMENT
