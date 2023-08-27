@@ -1,0 +1,7 @@
+#!/bin/sh
+
+awk -F: '($3==0)||($4==0)' /etc/passwd
+
+:<<'END_COMMENT'
+Filter roots uid and gid.
+END_COMMENT

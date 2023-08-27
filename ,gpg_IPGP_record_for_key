@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+# Creates a CERT IPGP record for a key
+
+key="$1"
+url="$2"
+origin=''
+
+# Let GPG generate most of the info
+data=$(gpg --export-options=export-pka --export "${key}")
+
+while read -r line; do
+    # Do not parse lines that do not contain a record
+    if [[ "$line" != *"TYPE37"* ]]; then
+        # Save the origin
+        if [[ "$line" == "\$ORIGIN"* ]]; then
+            origin=$(cut -d' ' -f2 <<<"${line}")
+        else
+            # Output all other lines
+            echo "${line}"
+        fi
+        continue
+    fi
+
+    name=$(cut -d' ' -f1 <<<"${line}")
+    len=$(cut -d' ' -f8 <<<"${line}")
+    fpr=$(cut -d' ' -f9 <<<"${line}")
+
+    # Decode the hexadecimal length and fingerprint
+    fp_hex=$(xxd -r -p <<<"${len}${fpr}")
+
+    rdata="$(echo -n "${fp_hex}${url}" | base64 -w0)"
+
+    # Show the record
+    echo "${name}.${origin} 3600 IN CERT 6 0 0 ${rdata}"
+done <<<"${data}"

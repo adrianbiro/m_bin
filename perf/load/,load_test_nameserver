@@ -1,0 +1,24 @@
+#!/bin/bash
+while getopts n:d: flag; do
+    case $flag in
+    n)
+        NAMESERVER=$OPTARG
+        ;;
+    d)
+        DNS_ADRESS=$OPTARG
+        ;;
+
+    *)
+        printf 'Usage:\n\t%s -d <DNS_ADRESS> -n <NAMESERVER>', "${0##*/}"
+        exit 1
+        ;;
+    esac
+done
+
+seq 1000000 | xargs --max-procs=0 -I{} dig "@${NAMESERVER}" {}".${DNS_ADRESS}" +short +yaml
+
+: <<'END_COMMENT'
+Load test local nameserver.
+First turn off response rate limiting
+https://kb.isc.org/docs/aa-00994
+END_COMMENT
