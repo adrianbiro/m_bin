@@ -15,7 +15,7 @@ while getopts n:d: flag; do
     esac
 done
 
-seq 1000000 | xargs --max-procs=0 -I{} dig "@${NAMESERVER}" {}".${DNS_ADRESS}" +short +yaml
+seq 1000000 | xargs --max-procs=0 -I{} dig "@${NAMESERVER}" {}".${DNS_ADRESS}" +short 
 
 : <<'END_COMMENT'
 Load test local nameserver.
