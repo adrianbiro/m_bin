@@ -1,0 +1,8 @@
+#!/bin/bash
+shuf -i 49152-60999 -n1
+
+: <<'END_COMMENT'
+RFC 6335  49152-65535 - https://www.rfc-editor.org/rfc/rfc6335.html
+Linux     32768-60999 - https://github.com/torvalds/linux/blob/1f5abbd77e2c1787e74b7c2caffac97def78ba52/net/ipv4/af_inet.c#L1833-L1834
+Windows   49152-65535 - https://learn.microsoft.com/en-US/troubleshoot/windows-server/networking/default-dynamic-port-range-tcpip-chang
+END_COMMENT
