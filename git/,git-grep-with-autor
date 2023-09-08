@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git grep -n "$@" | while IFS=: read -r file line code; do
+    author=$(git blame -L "${line}","${line}" "${file}" --line-porcelain | grep '^author ' | cut -d' ' -f2-)
+    echo -e "${file}:${line}:${author}:${code}"
+done
