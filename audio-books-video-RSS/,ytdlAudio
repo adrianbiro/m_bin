@@ -2,4 +2,4 @@
 set -o errexit
 #youtube-dl --extract-audio --audio-format mp3  --audio-quality 0 "${@}"
 
-yt-dlp --extract-audio --audio-format mp3 --format bestaudio "${@}"
+yt-dlp --extract-audio --audio-format mp3 --format bestaudio -o '%(playlist_index)s. %(title)s.%(ext)s' "${@}"
