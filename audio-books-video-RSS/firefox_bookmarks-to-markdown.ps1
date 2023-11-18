@@ -16,10 +16,14 @@ function Find-Object {
     Param([System.Object]$Object)
     ForEach-Object -InputObject $Object -Process {
         # Page
-        if ( -not (Get-Container -Type $_.children.type)) {
-           $_
+        if ( -not (Get-Container -Type $_.children.type) ) {
+            foreach ($i in $_.children ) {
+                if ($i.url -ne "") {
+                    "-[{0}]({1})" -f $i.title, $i.uri
+                }
+            }
         } #else {
-          #  "************"
+        #  "************"
         #}
     }
 } 
