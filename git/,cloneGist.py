@@ -5,7 +5,7 @@ import os
 import requests
 
 
-def get_urls(headers: dict[str, str]) -> list[str]:
+def get_urls(headers: dict[str, str], location: str) -> list[str]:
     """
     return list of files.<filename>.raw_ulr
     https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
@@ -25,6 +25,11 @@ def get_urls(headers: dict[str, str]) -> list[str]:
         if len(_urls) < 1:
             break
         urls.extend(_urls)
+        with open(
+            name := os.path.join(location, f"data_{_page}.json"), "w", encoding="utf-8"
+        ) as f:
+            print(f"Writing metadata file:\n\t{name}")
+            f.write(str(res.text))
         _page += 1
 
     return urls
@@ -63,7 +68,7 @@ def main() -> None:
         "Authorization": f"Bearer {TOKEN}",
     }
 
-    urls: list[str] = get_urls(headers=headers)
+    urls: list[str] = get_urls(headers=headers, location=location)
 
     loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
