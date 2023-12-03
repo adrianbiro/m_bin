@@ -11,16 +11,19 @@ readonly TOKEN NAME GITSDIR
 
 function gitstuff {
   local gitrepo dirnamedotgit
-  gitrepo="${1:?}" # git@github.com:adrianbiro/zfs_exporter.git
-  dirnamedotgit="${gitrepo##*/}"  # zfs_exporter.git
+  gitrepo="${1:?}"               # git@github.com:adrianbiro/zfs_exporter.git
+  dirnamedotgit="${gitrepo##*/}" # zfs_exporter.git
   cd "${GITSDIR}" >"/dev/null" || return
-  if [[ ! -d ".git" ]]; then
-    cd "${dirnamedotgit}" || return
-    git fetch --all --tags
-  else
-  echo "asd"
+  test ! -d "${dirnamedotgit}" && {
+    echo -e "\nNEW"
     git clone --mirror "${gitrepo}"
-  fi
+    return
+  }
+
+  echo -e "\nOLD"
+  cd "${dirnamedotgit}" || return
+  git fetch --all --tags
+
   : <<'END_COMMENT'
 https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-the-authenticated-user
 https://archive.kernel.org/oldwiki/git.wiki.kernel.org/index.php/Git_FAQ.html#How_do_I_clone_a_repository_with_all_remotely_tracked_branches.3F

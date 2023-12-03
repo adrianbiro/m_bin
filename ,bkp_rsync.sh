@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MOUNT_LOCATION="/mnt/mydisk"
-
+EXCLUDE_PATTERNS='**/venv/**'        # rsync --exclude=
 target_location="${MOUNT_LOCATION}/" #Intentional with /
 
 dirs_to_bkp=(
@@ -28,4 +28,21 @@ for i in "${dirs_to_bkp[@]}"; do
     }
 done
 
-rsync -rauvlPL --progress --delete "${dirs_to_bkp[@]}" "${target_location}"
+#-rauvlP
+rsync_args=(
+    '--recursive'
+    # -a archive mode is -rlptgoD (no -A,-X,-U,-N,-H) https://www.baeldung.com/linux/rsync-archive-mode
+    '--archive'
+    # -u skip files that are newer on the receiver
+    '--update'
+    '--verbose'
+    # -l copy symlinks as symlinks
+    '--links'
+    '--progress'
+    # -L transform symlink into referent file/dir
+    #'--copy-links'
+    '--delete'
+    "--exclude=${EXCLUDE_PATTERNS}"
+)
+
+rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
