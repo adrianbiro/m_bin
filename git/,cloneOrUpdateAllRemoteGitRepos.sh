@@ -5,7 +5,6 @@ set -o pipefail
 
 TOKEN=${TOKEN:?"export TOKEN='token_here'"}
 NAME='adrianbiro'
-OLDPWD="${PWD}"
 GITSDIR="${HOME}/allgits"
 readonly TOKEN NAME GITSDIR
 
@@ -31,6 +30,9 @@ https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/c
 END_COMMENT
 }
 function main {
+  pushd "${PWD}" >"/dev/null" || return
+  trap "popd >'/dev/null' || return" EXIT
+  
   if [[ ! -d "${GITSDIR}" ]]; then
     mkdir "${GITSDIR}"
   fi
@@ -53,6 +55,5 @@ function main {
       gitstuff "${line}"
     done
   done
-  cd "${OLDPWD}" || return
 }
 main "${@}"
