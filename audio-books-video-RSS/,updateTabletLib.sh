@@ -16,6 +16,6 @@ fi
 # and error-prone due to multiple levels of shell invocation.
 printf "Books before: %s\n" "$(find . -print | wc -l)"
 
-find "${SOURCE// /\ }" -type f \( -name '*.epub' -o -name '*.pdf' -o -name '*.djvu' \) -print0 | xargs -0r cp -u -t .
+find "${SOURCE// /\ }" -type f \( -name '*.epub' -o -name '*.pdf' -o -name '*.djvu' -o -name '*.azw3' \) -print0 | xargs -0r cp -u -t .
 
 printf "Books after: %s\n" "$(find . -print | wc -l)"
