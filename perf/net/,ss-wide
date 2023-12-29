@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ss -lapteun | less -S
+
+
+
+:<<'END_COMMENT'
+-l, --listening  Display only listening sockets (these are omitted by default).
+-a, --all       Display both listening and non-listening (for TCP  this  means  established connections) sockets.
+-p, --processes Show process using socket.
+-t, --tcp
+-e, --extended  Show detailed socket information. The output format is: uid:<uid_number> ino:<inode_number> sk:<cookie>
+-u, --udp
+-n, --numeric   Do not try to resolve service names. Show exact bandwidth values, instead of human-readable.
+END_COMMENT
