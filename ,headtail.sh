@@ -5,12 +5,12 @@
     exit 1
 }
 
-line="$(cat /dev/stdin)"
+allLines="$(cat /dev/stdin)"
 {
-    head "${@}" <<<"${line}"
+    head "${@}" <<<"${allLines}"
     # shellcheck disable=SC2183
     printf '%*s\n' "$(tput cols)" | tr ' ' '.'
-    tail "${@}" <<<"${line}"
+    tail "${@}" <<<"${allLines}"
 }
 
 : <<'END_COMMENT'
