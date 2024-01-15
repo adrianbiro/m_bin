@@ -19,5 +19,6 @@ seq 10 | ./,headtail.sh -n 2
 1
 2
 .......................
+9
 10
 END_COMMENT
