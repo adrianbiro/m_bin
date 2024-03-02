@@ -1,0 +1,15 @@
+#!/bin/bash
+watch -n 5 -d 'free -mht'
+
+:<<'END_COMMENT'
+watch
+execute a program periodically, showing output fullscreen
+-n, --interval seconds
+-d, --differences[=permanent] Highlight the differences between successive  updates.
+
+free
+Display amount of free and used memory in the system
+-m, --mebi      Display the amount of memory in mebibytes.
+-h, --human
+-t, --total     Display a line showing the column totals.
+END_COMMENT

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Stopwatch
+function timer() {
+  local green="\033[0;32m"
+  local clear="\033[0m"
+  echo -e "${green}Timer started. Stop with Ctrl-D.${clear}\n", && date && time cat && date
+}
+
+timer 

@@ -1,0 +1,2 @@
+#!/bin/bash
+git blame "$(git branch | sed -e '/^[^*]/d' -e 's/*\s\(.*\)/\1/')" -w "$(sed 's/\\/\//g' <<<"${1}")"
