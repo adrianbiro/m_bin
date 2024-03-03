@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if command -v readlink 1>"/dev/null" 2>&1; then
+    _path="$(readlink -f "$(dirname "${0}")")"
+else
+    _path="$(cd "$(dirname "${0}")" >"/dev/null" && pwd)" # the cd will not write output if it lands in ~/
+fi
+
+declare -a dirs
+dirs=(
+    "git"
+    "certs_sha"
+    "development"
+    "perf"
+)
+printf "General tools:\n"
+for i in "${dirs[@]}"; do
+    printf "export PATH=%s/%s:\$PATH\n" "${_path}" "${i}"
+done
+
+printf "\nMore perf tools:\n"
+declare -a perf_dirs
+perf_dirs=(
+    "perf"
+    "perf/hw"
+    "perf/load"
+    "perf/net"
+    "perf/sec"
+)
+for i in "${perf_dirs[@]}"; do
+    printf "export PATH=%s/%s:\$PATH\n" "${_path}" "${i}"
+done
