@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#https://docs.oracle.com/cd/E88353_01/html/E72487/prstat-8.html
+
+ps -eo pid,user,size,rss,state,pri,time,pcpu,comm,nlwp --sort=-%cpu,-size |
+    head -n 22 | sed -E 's:(\S+)\s+(\S+$):\1/\2:'
+total="$(ps -e | wc -l)"
+nlwp="$(ps -eo nlwp | awk '{sum += $0}END{print sum}')" # original is lwsp
+loadavg="$(uptime | awk -F': ' '{print $2}')"
+
+echo "Total: ${total} processes, ${nlwp} nlwp, load averages: ${loadavg}"
