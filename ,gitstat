@@ -1,1 +1,4 @@
-git/,gitstat
+#!/bin/bash
+REAL_BIN_PATH="$(readlink -e "${0}")" # resolve symlink
+REAL_BIN_PATH="$(dirname "${REAL_BIN_PATH}")" # get base
+"${REAL_BIN_PATH}/git/,gitstat"
