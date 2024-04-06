@@ -44,5 +44,21 @@ rsync_args=(
     '--delete'
     "--exclude=${EXCLUDE_PATTERNS}"
 )
+:<<'END_TODO_REMOTE_TIME_MACHINE_LIKE'
+#https://github.com/basnijholt/rsync-time-machine.py
+        '-D'
+        '--numeric-ids'
+        '--links'
+        '--hard-links'
+        '--one-file-system'
+        '--itemize-changes'
+        '--times'
+        '--recursive'
+        '--perms'
+        '--owner'
+        '--group'
+        '--stats'
+        '--human-readable'
 
 rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
+END_TODO_REMOTE_TIME_MACHINE_LIKE
