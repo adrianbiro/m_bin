@@ -1,0 +1,11 @@
+#!/bin/bash
+namei -oml "${@}"
+
+:<<'END_COMMENT'
+follow a pathname until a terminal point is found
+This program is useful for finding "too many levels of symbolic     links" problems.
+Long listing format
+-o, --owners Show owner and group name of each file.
+-m, --modes Show the mode bits of each file type in the style of ls(1), for example 'rwxr-xr-x'.
+v, --vertical Vertically align the modes and owners.
+END_COMMENT
