@@ -1,0 +1,9 @@
+#!/bin/bash
+
+FILE1="${1}"
+FILE2="${2}"
+
+diff -s <(jq -S . "${FILE1}") <(jq -S . "${FILE2}")
+
+# jq -S --sort-keys Output the fields of each object with the keys in sorted order.
+# diff -s, --report-identical-files
