@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo snap refresh
+sudo flatpak update -y
+sudo apt update
+sudo apt upgrade -y
+code --update-extensions
