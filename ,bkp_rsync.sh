@@ -60,5 +60,6 @@ rsync_args=(
         '--stats'
         '--human-readable'
 
-rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
 END_TODO_REMOTE_TIME_MACHINE_LIKE
+
+rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
