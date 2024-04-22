@@ -8,6 +8,7 @@ dirs_to_bkp=(
     "/home/adrian/adrian_knihy"
     "/home/adrian/gits"
     "/home/adrian/Applications"
+    "/home/adrian//Templates"
     "/home/adrian/.vim"
     "/opt/bin"
 )
