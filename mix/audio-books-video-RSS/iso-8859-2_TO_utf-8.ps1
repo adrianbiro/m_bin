@@ -32,9 +32,7 @@ begin {
     }
 }
 
-process {
-    $OutputFile
-    
+process {    
     [string[]]$Lines = [System.IO.File]::ReadAllLines(
         $InputFile, 
         [System.Text.Encoding]::GetEncoding('iso-8859-2')
