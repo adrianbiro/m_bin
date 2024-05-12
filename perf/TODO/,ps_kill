@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PROCESS_NAME="${1:?}"
+
+OLD_IFS="${IFS}"
+IFS='\n'
+# shellcheck disable=SC2009
+ARR=("$(ps aux | grep "${PROCESS_NAME}" | grep -v grep | grep -v "${0}")")
+#TODO ignore space in select menu
+
+PS3="Select process: "
+select proc in "${ARR[@]}"; do
+    echo  "${proc}"
+done
+IFS="${OLD_IFS}"

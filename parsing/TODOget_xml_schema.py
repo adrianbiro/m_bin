@@ -102,10 +102,10 @@ class XSDGenerator:
 
 if __name__ == "__main__":
     generator = XSDGenerator()
-    xml_path = "zmaz.xml"  # Update this path to your XML file.
+    xml_path = "../zmaz/zmaz.xml"  # Update this path to your XML file.
     xsd_schema = generator.generate_xsd(xml_path, min_occurs="0")
     if xsd_schema:
         # print("XSD Schema Generated Successfully:")
-        print(xsd_schema)
+        print(xsd_schema.t)
     else:
         print("Failed to generate XSD schema.")
