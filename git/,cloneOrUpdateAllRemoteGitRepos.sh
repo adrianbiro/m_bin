@@ -5,7 +5,8 @@ set -o pipefail
 
 TOKEN=${TOKEN:?"export TOKEN='token_here'"}
 NAME='adrianbiro'
-GITSDIR="${HOME}/allgits"
+#GITSDIR="${HOME}/allgits"
+GITSDIR="/media/adrian/HDD2022/allgits"
 readonly TOKEN NAME GITSDIR
 
 function gitstuff {

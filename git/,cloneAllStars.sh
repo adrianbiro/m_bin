@@ -1,13 +1,13 @@
 #!/bin/bash
 
-set -o errexit
+#set -o errexit
 set -o nounset
 set -o pipefail
 
 TOKEN=${TOKEN:?"export TOKEN='token_here'"}
 NAME='adrianbiro'
 OLDPWD="${PWD}"
-GITSDIR="${HOME}/allgits/_STARS"
+GITSDIR="/media/adrian/HDD2022/allgits/_STARS"
 STARSCSV="${GITSDIR}/starred_by_${NAME}.csv"
 readonly TOKEN NAME GITSDIR STARSCSV
 : <<'END_COMMENT'
