@@ -1,6 +1,7 @@
 #!/bin/sh
 iostat -xmdzh 1 "${@}" # -p sda
-# lsblk -l | awk '!(/loop/||/NAME/){print $1}'
+# iostat -xmdzh 1 -p $(lsblk -l | awk '!(/loop/||/NAME/){print $1}')
+
 
 :<<'END_COMMENT'
 CPU statistics and input/output statistics for devices and partitions
@@ -9,4 +10,7 @@ CPU statistics and input/output statistics for devices and partitions
 -d     Display the device utilization report.
 -z     Omit output for any devices for which there was no activity during the sample period.
 -h     --human
+
+-p     Display  statistics  for block devices and all their partitions that are used by the system.
+-d     Display the device utilization report.
 END_COMMENT
