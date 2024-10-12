@@ -1,8 +1,14 @@
 #!/bin/bash
 
 MOUNT_LOCATION="/mnt/mydisk"
-EXCLUDE_PATTERNS='**/venv/**'        # rsync --exclude=
 target_location="${MOUNT_LOCATION}/" #Intentional with /
+
+EXCLUDE_PATTERNS=(
+    "--exclude=**/venv/**"
+    "--exclude=**/node_modules/**"
+    "--exclude=**/target/**" #maven
+    "--exclude=**/stratocyberlab/ollama/**"
+)
 
 dirs_to_bkp=(
     "/home/adrian/adrian_knihy"
@@ -43,9 +49,10 @@ rsync_args=(
     # -L transform symlink into referent file/dir
     #'--copy-links'
     '--delete'
-    "--exclude=${EXCLUDE_PATTERNS}"
+    #"--exclude=${EXCLUDE_PATTERNS}"
+    "${EXCLUDE_PATTERNS[@]}"
 )
-:<<'END_TODO_REMOTE_TIME_MACHINE_LIKE'
+: <<'END_TODO_REMOTE_TIME_MACHINE_LIKE'
 #https://github.com/basnijholt/rsync-time-machine.py
         '-D'
         '--numeric-ids'
