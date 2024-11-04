@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python3 -u
 import re
 import sys
 from types import SimpleNamespace
@@ -69,8 +69,7 @@ def main():
 
     try:
         for line in sys.stdin:
-            print(colorize(line))
-            sys.stdout.flush()
+            print(colorize(line), flush=True)
     except (KeyboardInterrupt, BrokenPipeError):
         sys.stderr.close()
         sys.exit()
