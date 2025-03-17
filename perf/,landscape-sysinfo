@@ -1,0 +1,28 @@
+#!/bin/bash
+
+load_5_min="$(uptime | cut -d' ' -f 13 | tr -d ',')"
+processes="$(ps aux --no-headers | wc -l)"
+percent_disk_used="$(df -kh / | sed 1d | cut -d' ' -f5)"
+disk_size="$(df -kh / | sed 1d | cut -d' ' -f3)"
+user_sum="$(uptime | cut -d' ' -f 7)"
+memory_usege="$(free -m | awk 'NR==2{total=$2;used=$3;print (used/total) * 100}')"
+swap_usege="$(free -m | awk 'NR==3{total=$2;used=$3;print (used/total) * 100}')"
+net_interface="$(ip link show | grep 'state UP' | cut -d' ' -f2 | tr -d ':')"
+ip_addr_with_mask="$(ip addr show "${net_interface}" | awk '/inet /{print $2}')"
+
+echo -e "\
+System load:\t${load_5_min}\t\tProcesses:\t\t\t${processes}
+Usage of/:\t${percent_disk_used} of ${disk_size}\tUsers logged in:\t\t${user_sum}
+Memory usage:\t${memory_usege}%\tIPv4 address for ${net_interface}:\t${ip_addr_with_mask}
+Swap usage:\t${swap_usege}%
+"
+
+
+:<<'END_COMMENT'
+# original python version
+landscape-sysinfo
+  System load:  0.02              Processes:             106
+  Usage of /:   3.2% of 61.84GB   Users logged in:       1
+  Memory usage: 38%               IPv4 address for eth0: 10.1.0.4
+  Swap usage:   0%
+END_COMMENT
