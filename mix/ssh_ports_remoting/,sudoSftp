@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sftp -s "sudo /usr/lib/openssh/sftp-server" "${@}"
