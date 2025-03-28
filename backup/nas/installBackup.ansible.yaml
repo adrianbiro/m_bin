@@ -1,0 +1,29 @@
+---
+- name: Backup to nas bkp_rsync_nas
+  hosts: all
+  become: true
+  vars:
+    user: adrian
+    group: adrian
+
+  tasks:
+  - name: Install timer and service
+    ansible.builtin.copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: "{{ user }}"
+      group: "{{ group }}"
+      mode: "{{ item.mode }}"
+    with_items:
+    - { src: 'bkp_rsync_nas.service', dest: '/etc/systemd/system/bkp_rsync_nas.service', mode: '0644' }
+    - { src: 'bkp_rsync_nas.timer', dest: '/etc/systemd/system/bkp_rsync_nas.timer', mode: '0644' }
+    - { src: 'bkp_rsync_nas.sh', dest: '/usr/local/bin/bkp_rsync_nas.sh', mode: '0755' }
+  - name: Enable timer and service
+    ansible.builtin.service:
+      name: "{{ item }}"
+      state: started
+      enabled: yes
+      daemon_reload: true
+    with_items:
+    - bkp_rsync_nas.service
+    - bkp_rsync_nas.timer

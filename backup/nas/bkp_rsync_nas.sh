@@ -1,7 +1,14 @@
 #!/bin/bash
 
-MOUNT_LOCATION="/mnt/mydisk"
-target_location="${MOUNT_LOCATION}/" #Intentional with /
+
+REMOTE_LOCATION="nas.local:/var/services/homes/adrian/Automatic_bkp/PC_Backup_rsync"
+REMOTE_HOST="nas.local"
+SSH_CONFIG="/home/adrian/.ssh/config"
+SSH_KNOWN_HOSTS="/home/adrian/.ssh/known_hosts"
+REMOTE_CHOWN="adrian:users"
+LOG_FILE_LOCATION="/var/log/bkp_rsync_nas.log"
+
+target_location="${REMOTE_LOCATION}/" #Intentional with /
 
 EXCLUDE_PATTERNS=(
     "--exclude=**/venv/**"
@@ -14,18 +21,16 @@ dirs_to_bkp=(
     "/home/adrian/adrian_knihy"
     "/home/adrian/gits"
     "/home/adrian/Applications"
-    "/home/adrian//Templates"
-    "/home/adrian/.vim"
+    "/home/adrian/Templates"
+#    "/home/adrian/.vim"
     "/opt/bin"
 )
 
-[[ "${EUID}" -eq 0 ]] || {
-    echo "This script must be run as root!" 1>&2
-    exit 1
-}
-{ mountpoint "${MOUNT_LOCATION}" -q; } || {
-    echo -e "Mount it in to:\n\t${MOUNT_LOCATION}" 1>&2
-    exit 1
+
+
+{ ping -c1 "${REMOTE_HOST}" > /dev/null ; } || {
+    echo -e "Remote host: '${REMOTE_HOST}' is not online." 1>&2
+    exit 123
 }
 
 for i in "${dirs_to_bkp[@]}"; do
@@ -50,24 +55,19 @@ rsync_args=(
     #'--copy-links'
     '--delete'
     #"--exclude=${EXCLUDE_PATTERNS}"
+    # nas specific settings
+    "--chown=${REMOTE_CHOWN}"
     "${EXCLUDE_PATTERNS[@]}"
+    "--log-file=${LOG_FILE_LOCATION}"
+    #-e "ssh -i ${REMOTE_SSH_KEY} -o StrictHostKeyChecking=no"
+    "-e ssh -F ${SSH_CONFIG} -o UserKnownHostsFile=${SSH_KNOWN_HOSTS}"
 )
-: <<'END_TODO_REMOTE_TIME_MACHINE_LIKE'
-#https://github.com/basnijholt/rsync-time-machine.py
-        '-D'
-        '--numeric-ids'
-        '--links'
-        '--hard-links'
-        '--one-file-system'
-        '--itemize-changes'
-        '--times'
-        '--recursive'
-        '--perms'
-        '--owner'
-        '--group'
-        '--stats'
-        '--human-readable'
 
-END_TODO_REMOTE_TIME_MACHINE_LIKE
 
 rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
+
+
+: <<'RESTORE_EXAMPLE'
+rsync -rauvlPL --progress /d/{adrian_knihy,gits} $HOME/
+rsync -rauvlPL --progress /mnt/mydisk/{adrian_knihy,gits,Applications,Templates} /home/adrian/
+RESTORE_EXAMPLE

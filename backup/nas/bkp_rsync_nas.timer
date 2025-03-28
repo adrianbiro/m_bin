@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup to nas daily
+Requires=bkp_rsync_nas.service
+
+[Timer]
+Unit=bkp_rsync_nas.service
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target
