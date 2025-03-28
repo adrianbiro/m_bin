@@ -3,10 +3,7 @@
 
 REMOTE_LOCATION="nas.local:/var/services/homes/adrian/Automatic_bkp/PC_Backup_rsync"
 REMOTE_HOST="nas.local"
-SSH_CONFIG="/home/adrian/.ssh/config"
-SSH_KNOWN_HOSTS="/home/adrian/.ssh/known_hosts"
 REMOTE_CHOWN="adrian:users"
-LOG_FILE_LOCATION="/var/log/bkp_rsync_nas.log"
 
 target_location="${REMOTE_LOCATION}/" #Intentional with /
 
@@ -30,7 +27,7 @@ dirs_to_bkp=(
 
 { ping -c1 "${REMOTE_HOST}" > /dev/null ; } || {
     echo -e "Remote host: '${REMOTE_HOST}' is not online." 1>&2
-    exit 123
+    exit 0
 }
 
 for i in "${dirs_to_bkp[@]}"; do
@@ -55,12 +52,12 @@ rsync_args=(
     #'--copy-links'
     '--delete'
     #"--exclude=${EXCLUDE_PATTERNS}"
-    # nas specific settings
-    "--chown=${REMOTE_CHOWN}"
     "${EXCLUDE_PATTERNS[@]}"
-    "--log-file=${LOG_FILE_LOCATION}"
+    # Idenity specific
+    "--chown=${REMOTE_CHOWN}"
+    #"--log-file=${LOG_FILE_LOCATION}"
     #-e "ssh -i ${REMOTE_SSH_KEY} -o StrictHostKeyChecking=no"
-    "-e ssh -F ${SSH_CONFIG} -o UserKnownHostsFile=${SSH_KNOWN_HOSTS}"
+    #-e "ssh -F ${SSH_CONFIG} -o UserKnownHostsFile=${SSH_KNOWN_HOSTS}"
 )
 
 

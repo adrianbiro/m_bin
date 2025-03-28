@@ -1,11 +1,15 @@
 [Unit]
 Description=Backup to nas
-Wants=gitsBackup.timer
+Wants=bkp_rsync_nas.timer
 
 [Service]
 Type=oneshot
+User=adrian
+Group=adrian
 ReadOnlyPaths=/
 ReadWritePaths=/var/log/bkp_rsync_nas.log
+StandardOutput=append:/var/log/bkp_rsync_nas.log
+StandardError=append:/var/log/bkp_rsync_nas.log
 ExecPaths=/usr/local/bin /usr/bin /bin
 ExecStart=/usr/local/bin/bkp_rsync_nas.sh
 
