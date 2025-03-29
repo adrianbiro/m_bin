@@ -47,7 +47,6 @@ rsync_args=(
     '--verbose'
     # -l copy symlinks as symlinks
     '--links'
-    '--progress'
     # -L transform symlink into referent file/dir
     #'--copy-links'
     '--delete'
