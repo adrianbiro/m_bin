@@ -60,8 +60,11 @@ rsync_args=(
 )
 
 
-rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}"
+CMD=(rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}")
 
+echo -e "Runnigng backup: $(date)\n\t${CMD[*]}"
+
+"${CMD[@]}"
 
 : <<'RESTORE_EXAMPLE'
 rsync -rauvlPL --progress /d/{adrian_knihy,gits} $HOME/

@@ -1,0 +1,9 @@
+/var/log/bkp_rsync_nas.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+  notifempty
+  create 644 adrian adrian
+  su adrian adrian
+}
