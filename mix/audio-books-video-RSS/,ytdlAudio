@@ -1,6 +1,9 @@
 #!/bin/bash
 set -o errexit
-#youtube-dl --extract-audio --audio-format mp3  --audio-quality 0 "${@}"
+## Resume
+#--ignore-errors --no-overwrites --continue
+#--concurrent-fragments 5 # default is 1
+#youtube-dl --extract-audio --audio-format mp3  --ignore-errors --no-overwrites --continue --audio-quality 0 "${@}"
 
 yt-dlp --extract-audio --audio-format mp3 --format bestaudio -o '%(playlist_index)s. %(title)s.%(ext)s' "${@}"
 # best video and audio

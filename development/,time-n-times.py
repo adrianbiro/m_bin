@@ -11,7 +11,7 @@ import time
 
 
 def main(): # pylint: disable=C0116
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="time-n-times -n 10 -- ls -l")
     parser.add_argument("-n", type=int, default=5)
     parser.add_argument("cmd", nargs="+")
     args = parser.parse_args()
