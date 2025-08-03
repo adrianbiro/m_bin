@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Get subset of lines from jsonl files"""
 import argparse
 import linecache
 import mmap
