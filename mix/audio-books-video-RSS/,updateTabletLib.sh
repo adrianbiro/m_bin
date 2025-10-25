@@ -2,7 +2,7 @@
 # It is faster then calibre to move several gigs of data.
 
 # run from target dir on terget device
-SOURCE=${1:-~/adrian_knihy/Calibre Library}
+SOURCE=${1:-~/adrian_knihy/Knihy/Calibre}
 if ! [[ -d "${SOURCE}" ]]; then
   echo -e "Usage:\v${0} <source dir>"
   exit 64
