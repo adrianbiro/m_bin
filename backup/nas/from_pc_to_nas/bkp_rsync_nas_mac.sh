@@ -3,7 +3,6 @@
 
 REMOTE_LOCATION="nas.local:/var/services/homes/adrian/Automatic_bkp/PC_Backup_rsync"
 REMOTE_HOST="nas.local"
-REMOTE_CHOWN="adrian:users"
 
 target_location="${REMOTE_LOCATION}/" #Intentional with /
 
@@ -12,14 +11,14 @@ EXCLUDE_PATTERNS=(
     "--exclude=**/node_modules/**"
     "--exclude=**/target/**" #maven
     "--exclude=**/stratocyberlab/ollama/**"
+    "--exclude=**/\$Temp/**"
+    "--exclude=**/.DS_Store/**"
 )
 
 dirs_to_bkp=(
-    "/Users/adrian/adrian_knihy alias"
+    "$(realpath /Users/adrian/Library/CloudStorage/*-folder/adrian_knihy)"
     "/Users/adrian/gits"
 )
-
-
 
 { ping -c1 "${REMOTE_HOST}" > /dev/null ; } || {
     echo -e "Remote host: '${REMOTE_HOST}' is not online." 1>&2
@@ -46,21 +45,18 @@ rsync_args=(
     # -L transform symlink into referent file/dir
     #'--copy-links'
     '--delete'
-    #"--exclude=${EXCLUDE_PATTERNS}"
+    '--omit-dir-times'
     "${EXCLUDE_PATTERNS[@]}"
-    # Idenity specific
-    "--chown=${REMOTE_CHOWN}"
-    #"--log-file=${LOG_FILE_LOCATION}"
-    #-e "ssh -i ${REMOTE_SSH_KEY} -o StrictHostKeyChecking=no"
-    #-e "ssh -F ${SSH_CONFIG} -o UserKnownHostsFile=${SSH_KNOWN_HOSTS}"
 )
 
 
 CMD=(rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}")
 
-echo -e "Runnigng backup: $(date)\n\t${CMD[*]}"
+echo -e "Running backup: $(date)\n\t${CMD[*]}"
 
 "${CMD[@]}"
+
+echo -e "Done at: $(date)"
 
 : <<'RESTORE_EXAMPLE'
 rsync -rauvlPL --progress /d/{adrian_knihy,gits} $HOME/

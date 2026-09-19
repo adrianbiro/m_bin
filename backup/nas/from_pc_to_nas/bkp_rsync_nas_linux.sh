@@ -53,7 +53,7 @@ rsync_args=(
     #"--exclude=${EXCLUDE_PATTERNS}"
     "${EXCLUDE_PATTERNS[@]}"
     # Idenity specific
-    "--chown=${REMOTE_CHOWN}"
+    "--chown=${REMOTE_CHOWN}" #unrecognized option on macos
     #"--log-file=${LOG_FILE_LOCATION}"
     #-e "ssh -i ${REMOTE_SSH_KEY} -o StrictHostKeyChecking=no"
     #-e "ssh -F ${SSH_CONFIG} -o UserKnownHostsFile=${SSH_KNOWN_HOSTS}"
@@ -62,7 +62,7 @@ rsync_args=(
 
 CMD=(rsync "${rsync_args[@]}" "${dirs_to_bkp[@]}" "${target_location}")
 
-echo -e "Runnigng backup: $(date)\n\t${CMD[*]}"
+echo -e "Running backup: $(date)\n\t${CMD[*]}"
 
 "${CMD[@]}"
 
